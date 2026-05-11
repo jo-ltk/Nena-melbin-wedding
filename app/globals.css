@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@400;500&family=Jost:wght@300;400;500&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+:root {
+  --cream: #faf6f0;
+  --ivory: #f5ede0;
+  --parchment: #ede0cc;
+  --gold: #b8956a;
+  --gold-light: #d4b896;
+  --gold-dark: #8a6a42;
+  --burgundy: #4a1428;
+  --burgundy-mid: #6b2040;
+  --burgundy-light: #9b4060;
+  --charcoal: #1a1410;
+  --text-muted: #7a6050;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--cream);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--charcoal);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  .serif-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 500;
+  }
+
+  .serif-heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+  }
+
+  .sans-text {
+    font-family: 'Jost', sans-serif;
+  }
+}
