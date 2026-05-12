@@ -7,9 +7,7 @@ export const metadata: Metadata = {
   description: 'Join us as we celebrate our love with the blessing of God and our families.',
   generator: 'v0.app',
   icons: {
-
     icon: '/icon.svg',
-    apple: '/icon.svg',
   },
 }
 
