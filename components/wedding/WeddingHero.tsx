@@ -2,8 +2,9 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 
-const HERO_IMAGES = ['/JIJ01421.jpg', '/JIJ01996.jpg', '/JIJ01918.jpg', '/JIJ00992.jpg'];
+const HERO_IMAGES = ['/JIJ01996.jpg', '/JIJ01918.jpg'];
 
 export default function WeddingHero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -17,7 +18,7 @@ export default function WeddingHero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 3000);
+    }, 6000);
     return () => clearInterval(interval);
   }, []);
 
@@ -34,17 +35,25 @@ export default function WeddingHero() {
         style={{ y: imgY, scale: 1.08 }}
       >
         <AnimatePresence>
-          <motion.img
+          <motion.div
             key={currentImageIndex}
-            src={HERO_IMAGES[currentImageIndex]}
-            alt="Nena and Melbin"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5, ease: 'easeInOut' }}
-            className="absolute inset-0 h-full w-full object-cover object-top"
+            className="absolute inset-0 h-full w-full"
             style={{ filter: 'brightness(0.95) saturate(1.15) contrast(1.05)' }}
-          />
+          >
+            <Image
+              src={HERO_IMAGES[currentImageIndex]}
+              alt="Nena and Melbin"
+              fill
+              priority={currentImageIndex === 0}
+              quality={85}
+              sizes="100vw"
+              className="object-cover object-top"
+            />
+          </motion.div>
         </AnimatePresence>
       </motion.div>
 
