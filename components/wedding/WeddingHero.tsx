@@ -1,109 +1,161 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+
+// ─── REPLACE with your actual photo import ───────────────────────────────────
+// import coupleImg from '@/assets/JIJ01543.jpg';
+// Then use: src={coupleImg.src}  (Next.js)  OR  src={coupleImg}  (Vite / CRA)
+// For now we're using a placeholder string so the component compiles.
+const COUPLE_IMAGE = '/JIJ01543.jpg'; // ← put your image in /public/
+// ─────────────────────────────────────────────────────────────────────────────
 
 export default function WeddingHero() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-  };
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-12%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section className="relative w-full bg-cream">
-      {/* Header with Navigation */}
-      <motion.header
-        className="relative z-20 flex items-center justify-between px-8 py-6 border-b border-charcoal border-opacity-10"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="font-display text-sm uppercase tracking-widest text-charcoal">
-          Ceremony
-        </div>
-        <nav className="flex items-center gap-8">
-          <a href="#schedule" className="font-sans text-xs uppercase tracking-wide text-charcoal hover:text-gold transition-colors">
-            Schedule
-          </a>
-          <a href="#venue" className="font-sans text-xs uppercase tracking-wide text-charcoal hover:text-gold transition-colors">
-            Venue
-          </a>
-          <a href="#contact" className="font-sans text-xs uppercase tracking-wide text-charcoal hover:text-gold transition-colors">
-            Contact
-          </a>
-        </nav>
-      </motion.header>
-
-      {/* Text Content Section */}
+    <section
+      ref={ref}
+      id="hero"
+      className="relative w-full overflow-hidden"
+      style={{ height: '100svh', minHeight: 640 }}
+    >
+      {/* ── Parallax image ── */}
       <motion.div
-        className="relative z-10 flex flex-col items-center justify-center px-6 py-16"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Main Names */}
-        <motion.h1
-          variants={itemVariants}
-          className="font-serif text-charcoal text-center leading-tight"
-          style={{
-            fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-            fontStyle: 'italic',
-            fontWeight: 400,
-            letterSpacing: '-0.02em',
-            marginBottom: '1rem',
-          }}
-        >
-          Nena & Melbin
-        </motion.h1>
-
-        {/* Wedding Date */}
-        <motion.p
-          variants={itemVariants}
-          className="font-sans text-xs uppercase tracking-widest text-charcoal text-opacity-70 mb-12"
-          style={{ letterSpacing: '0.15em' }}
-        >
-          May 31, 2026
-        </motion.p>
-      </motion.div>
-
-      {/* Image Section */}
-      <motion.div
-        className="relative w-full h-96 overflow-hidden"
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        className="absolute inset-0 will-change-transform"
+        style={{ y: imgY, scale: 1.08 }}
       >
         <img
-          src="https://images.unsplash.com/photo-1606216794079-73bd3b01a7da?w=1920&q=80&fit=crop"
-          alt="Nena & Melbin"
-          className="w-full h-full object-cover"
+          src={COUPLE_IMAGE}
+          alt="Nena and Melbin"
+          className="h-full w-full object-cover object-top"
+          style={{ filter: 'brightness(0.95) saturate(1.15) contrast(1.05)' }}
         />
       </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* ── Overlay: bottom fade ── */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(to top, rgba(10,8,6,0.85) 0%, rgba(10,8,6,0.2) 55%, transparent 100%)',
+        }}
+      />
+
+      {/* ── Hero text ── */}
       <motion.div
-        className="relative z-10 flex justify-center items-center gap-2 py-8"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-16 px-7 text-center"
+        style={{ y: textY, opacity }}
       >
-        <span className="font-sans text-xs uppercase tracking-widest text-charcoal text-opacity-50">
-          Scroll to explore
-        </span>
-        <div className="w-px h-4 bg-charcoal bg-opacity-30" />
+        {/* eyebrow */}
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            fontFamily: "'Jost', sans-serif",
+            fontWeight: 400,
+            fontSize: 'clamp(10px, 2.5vw, 12px)',
+            letterSpacing: '0.5em',
+            color: 'rgba(255,218,140,0.9)',
+            textTransform: 'uppercase',
+            marginBottom: 'clamp(16px, 4vw, 24px)',
+            textShadow: '0 2px 15px rgba(0,0,0,0.4)',
+          }}
+        >
+          Together with their families
+        </motion.p>
+
+        {/* names - HORIZONTAL */}
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontStyle: 'italic',
+            fontWeight: 400,
+            fontSize: 'clamp(38px, 12vw, 88px)',
+            lineHeight: 1.0,
+            color: 'rgba(255,246,230,1)',
+            letterSpacing: '-0.02em',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.35em',
+            textShadow: '0 4px 30px rgba(0,0,0,0.35), 0 0 50px rgba(255,212,120,0.2)',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <span>Nena</span>
+          <span style={{ 
+            color: 'rgba(255,212,120,0.7)', 
+            fontSize: '0.42em', 
+            fontStyle: 'normal', 
+            letterSpacing: '0.05em',
+          }}>
+            &amp;
+          </span>
+          <span>Melbin</span>
+        </motion.h1>
+
+        {/* ornamental divider */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center gap-4 my-8"
+          style={{ width: 'clamp(140px, 40vw, 240px)' }}
+        >
+          <div style={{ flex: 1, height: '0.5px', background: 'rgba(255,210,120,0.4)' }} />
+          <div style={{ width: 4, height: 4, background: 'rgba(255,210,120,0.6)', transform: 'rotate(45deg)' }} />
+          <div style={{ flex: 1, height: '0.5px', background: 'rgba(255,210,120,0.4)' }} />
+        </motion.div>
+
+        {/* date + venue */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.88, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}
+        >
+          <p
+            style={{
+              fontFamily: "'Jost', sans-serif",
+              fontWeight: 400,
+              fontSize: 'clamp(11px, 3vw, 13px)',
+              letterSpacing: '0.35em',
+              color: 'rgba(255,238,200,0.85)',
+              textTransform: 'uppercase',
+              textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+            }}
+          >
+            15 · 06 · 2025
+          </p>
+          <p
+            style={{
+              fontFamily: "'Jost', sans-serif",
+              fontWeight: 300,
+              fontSize: 'clamp(9px, 2.5vw, 11px)',
+              letterSpacing: '0.25em',
+              color: 'rgba(255,238,200,0.55)',
+              textTransform: 'uppercase',
+              textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+            }}
+          >
+            Thrissur, Kerala
+          </p>
+        </motion.div>
       </motion.div>
+
+      {/* Google Fonts loader — add to <head> in your layout instead */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap');
+      `}</style>
     </section>
   );
 }

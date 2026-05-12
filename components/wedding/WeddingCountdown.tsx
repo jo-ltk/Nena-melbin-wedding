@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface CountdownState {
   days: number;
@@ -17,12 +17,9 @@ export default function WeddingCountdown() {
     minutes: 0,
     seconds: 0,
   });
-  const [prevValues, setPrevValues] = useState<CountdownState>(countdown);
+  const [hasEnded, setHasEnded] = useState(false);
+  
   const countdownRef = useRef(countdown);
-
-  useEffect(() => {
-    countdownRef.current = countdown;
-  }, [countdown]);
 
   useEffect(() => {
     const calculateCountdown = () => {
@@ -31,93 +28,153 @@ export default function WeddingCountdown() {
       const now = new Date().getTime();
       const difference = weddingDate - now;
 
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / (1000 * 60)) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
-
-        setPrevValues(countdownRef.current);
-        setCountdown({ days, hours, minutes, seconds });
+      if (difference <= 0) {
+        setHasEnded(true);
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
       }
+
+      setCountdown({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / (1000 * 60)) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      });
     };
 
     calculateCountdown();
     const interval = setInterval(calculateCountdown, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
-  const CountdownUnit = ({ value, label }: { value: number; label: string }) => {
-    const hasChanged = value !== prevValues[label.toLowerCase() as keyof CountdownState];
-
-    return (
-      <motion.div
-        className="flex flex-col items-center"
-        animate={hasChanged ? { scale: [1, 1.05, 1] } : {}}
-        transition={{ duration: 0.3 }}
-      >
-        <div
-          className="bg-opacity-6 border border-opacity-20 border-gold p-8 md:p-6 lg:p-8 text-center"
-          style={{
-            backgroundColor: 'rgba(250, 246, 240, 0.06)',
-            borderColor: 'rgba(184, 149, 106, 0.2)',
-          }}
-        >
-          <div
-            className="font-serif font-light text-gold-light"
+  const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
+    <div className="flex flex-col items-center flex-1">
+      <div className="relative h-[100px] md:h-[140px] flex items-center justify-center overflow-hidden w-full">
+        <AnimatePresence mode="popLayout">
+          <motion.span
+            key={value}
+            initial={{ y: 20, opacity: 0, filter: 'blur(10px)' }}
+            animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+            exit={{ y: -20, opacity: 0, filter: 'blur(10px)' }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              fontSize: 'clamp(3rem, 6vw, 4.5rem)',
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontSize: 'clamp(3.5rem, 8vw, 6rem)',
+              color: 'rgba(255, 246, 230, 0.95)',
+              textShadow: '0 0 30px rgba(255, 212, 120, 0.15)',
+              lineHeight: 1,
             }}
           >
             {String(value).padStart(2, '0')}
-          </div>
-          <div
-            className="font-display uppercase text-opacity-60 text-gold-light mt-3"
-            style={{
-              fontSize: '0.55rem',
-              letterSpacing: '0.25em',
-            }}
-          >
-            {label}
-          </div>
-        </div>
-      </motion.div>
-    );
-  };
+          </motion.span>
+        </AnimatePresence>
+      </div>
+      
+      <motion.p
+        style={{
+          fontFamily: "'Jost', sans-serif",
+          fontWeight: 300,
+          fontSize: 'clamp(9px, 2vw, 11px)',
+          letterSpacing: '0.4em',
+          color: 'rgba(255, 218, 140, 0.5)',
+          textTransform: 'uppercase',
+          marginTop: -5
+        }}
+      >
+        {label}
+      </motion.p>
+    </div>
+  );
 
   return (
-    <section className="w-full bg-burgundy py-16 md:py-20 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative w-full py-24 md:py-32 overflow-hidden" style={{ backgroundColor: '#1a0808' }}>
+      {/* Background grain/texture effect */}
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none" 
+           style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
+
+      <div className="max-w-5xl mx-auto px-7 relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2
-            className="font-display uppercase text-gold mb-4"
+        <div className="flex flex-col items-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             style={{
-              fontSize: '0.6rem',
-              letterSpacing: '0.3em',
+              fontFamily: "'Jost', sans-serif",
+              fontWeight: 200,
+              fontSize: 10,
+              letterSpacing: '0.6em',
+              color: 'rgba(255, 218, 140, 0.7)',
+              textTransform: 'uppercase',
+              marginBottom: 24,
             }}
           >
-            Counting Down To
-          </h2>
-          <div className="w-10 h-px bg-gold mx-auto" />
+            {hasEnded ? "The Celebration Begins" : "Counting down to the day"}
+          </motion.span>
+          
+          {/* Ornamental Divider */}
+          <div className="flex items-center gap-4 w-full max-w-[200px]">
+            <div className="flex-1 h-[0.5px] bg-gradient-to-r from-transparent to-[rgba(255,210,120,0.3)]" />
+            <div className="w-1.5 h-1.5 border-[0.5px] border-[rgba(255,210,120,0.5)] rotate-45" />
+            <div className="flex-1 h-[0.5px] bg-gradient-to-l from-transparent to-[rgba(255,210,120,0.3)]" />
+          </div>
         </div>
 
-        {/* Countdown Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
-          <CountdownUnit value={countdown.days} label="Days" />
-          <CountdownUnit value={countdown.hours} label="Hours" />
-          <CountdownUnit value={countdown.minutes} label="Minutes" />
-          <CountdownUnit value={countdown.seconds} label="Seconds" />
-        </div>
-
-        {/* Bottom Divider */}
-        <div
-          className="w-full h-px"
-          style={{
-            backgroundColor: 'rgba(184, 149, 106, 0.15)',
-          }}
-        />
+        {/* Countdown Grid or Celebration Message */}
+        <AnimatePresence mode="wait">
+          {!hasEnded ? (
+            <motion.div 
+              key="countdown"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+              className="flex justify-between items-center gap-2 md:gap-8"
+            >
+              <CountdownUnit value={countdown.days} label="Days" />
+              <div className="h-10 w-[0.5px] bg-[rgba(255,212,120,0.15)] hidden md:block" />
+              <CountdownUnit value={countdown.hours} label="Hours" />
+              <div className="h-10 w-[0.5px] bg-[rgba(255,212,120,0.15)] hidden md:block" />
+              <CountdownUnit value={countdown.minutes} label="Minutes" />
+              <div className="h-10 w-[0.5px] bg-[rgba(255,212,120,0.15)] hidden md:block" />
+              <CountdownUnit value={countdown.seconds} label="Seconds" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="celebration"
+              initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col items-center justify-center text-center"
+            >
+              <h2 
+                style={{ 
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+                  color: 'rgba(255, 246, 230, 0.95)',
+                  fontWeight: 300,
+                  fontStyle: 'italic',
+                  lineHeight: 1.2
+                }}
+              >
+                It's Wedding Day!
+              </h2>
+              <p
+                style={{
+                  fontFamily: "'Jost', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 12,
+                  letterSpacing: '0.4em',
+                  color: 'rgba(255, 218, 140, 0.6)',
+                  textTransform: 'uppercase',
+                  marginTop: 16
+                }}
+              >
+                Nena & Melbin • May 31, 2026
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

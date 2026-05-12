@@ -2,104 +2,96 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Heart, Church, GlassWater, Image as ImageIcon, MapPin, Mail, Home } from 'lucide-react';
+
+const NAV_LINKS = [
+  { icon: <Home size={18} strokeWidth={1.5} />, label: 'Home', href: '#hero' },
+  { icon: <Heart size={18} strokeWidth={1.5} />, label: 'Story', href: '#story' },
+  { icon: <Church size={18} strokeWidth={1.5} />, label: 'Ceremony', href: '#ceremony' },
+  { icon: <GlassWater size={18} strokeWidth={1.5} />, label: 'Reception', href: '#reception' },
+  { icon: <ImageIcon size={18} strokeWidth={1.5} />, label: 'Gallery', href: '#gallery' },
+  { icon: <MapPin size={18} strokeWidth={1.5} />, label: 'Travel', href: '#travel' },
+  { icon: <Mail size={18} strokeWidth={1.5} />, label: 'RSVP', href: '#rsvp' },
+];
 
 export default function WeddingNav() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      
+      // Update active section based on scroll position
+      const sections = NAV_LINKS.map(link => link.href.substring(1));
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Our Story', href: '#story' },
-    { label: 'The Ceremony', href: '#ceremony' },
-    { label: 'Reception', href: '#reception' },
-    { label: 'Gallery', href: '#gallery' },
-  ];
-
   return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-100 flex items-center justify-between px-8 py-6 transition-all duration-300"
-      animate={{
-        backgroundColor: scrolled ? 'rgba(250, 246, 240, 0.92)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'blur(0px)',
-        borderBottomColor: scrolled ? 'rgba(184, 149, 106, 0.2)' : 'rgba(184, 149, 106, 0)',
-        paddingTop: scrolled ? '1.25rem' : '1.5rem',
-        paddingBottom: scrolled ? '1.25rem' : '1.5rem',
-      }}
-      style={{
-        borderBottom: '1px solid',
-        transitionDuration: '300ms',
-      }}
-    >
-      {/* Logo */}
-      <motion.div
-        className="text-xl italic font-serif"
-        animate={{
-          color: scrolled ? 'var(--burgundy)' : 'white',
-        }}
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-6 pointer-events-none"
       >
-        Nena & Melbin
-      </motion.div>
-
-      {/* Desktop Nav Links */}
-      <div className="hidden md:flex items-center gap-12">
-        {navLinks.map((link) => (
-          <motion.a
-            key={link.label}
-            href={link.href}
-            className="font-display text-sm uppercase tracking-wider"
-            animate={{
-              color: scrolled ? 'var(--text-muted)' : 'rgba(250, 246, 240, 0.85)',
-            }}
-            style={{ letterSpacing: '0.25em' }}
-            whileHover={{ opacity: 0.7 }}
-          >
-            {link.label}
-          </motion.a>
-        ))}
-      </div>
-
-      {/* Mobile Menu Button */}
-      <motion.button
-        className="md:hidden flex items-center justify-center w-10 h-10"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        animate={{
-          color: scrolled ? 'var(--burgundy)' : 'white',
-        }}
-      >
-        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-      </motion.button>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
         <motion.div
-          className="absolute top-full left-0 right-0 bg-cream shadow-lg py-6 px-8 md:hidden"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
+          animate={{
+            backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.6)',
+            backdropFilter: 'blur(16px)',
+            borderColor: scrolled ? 'rgba(184, 149, 106, 0.3)' : 'rgba(184, 149, 106, 0.2)',
+          }}
+          className="flex items-center gap-1 md:gap-4 px-5 py-2.5 rounded-full border-[0.5px] shadow-2xl shadow-black/10 pointer-events-auto"
         >
-          <div className="flex flex-col gap-4">
-            {navLinks.map((link) => (
+          {NAV_LINKS.map((link, i) => {
+            const isActive = activeSection === link.href.substring(1);
+            return (
               <a
-                key={link.label}
+                key={i}
                 href={link.href}
-                className="font-display text-sm uppercase tracking-wider text-charcoal"
-                onClick={() => setMobileMenuOpen(false)}
+                className="relative p-2.5 md:p-3 text-[#1a1816]/70 hover:text-[#b8956a] transition-all duration-300 group"
+                aria-label={link.label}
               >
-                {link.label}
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-active"
+                    className="absolute inset-0 bg-[#b8956a]/15 rounded-full"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                
+                <div className={`relative z-10 transition-transform duration-300 group-hover:scale-110 ${isActive ? 'text-[#b8956a] scale-110' : ''}`}>
+                  {link.icon}
+                </div>
+
+                {/* Tooltip for desktop */}
+                <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-[#1a1816] text-[#faf9f6] text-[9px] tracking-widest uppercase rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+                  {link.label}
+                </span>
               </a>
-            ))}
-          </div>
+            );
+          })}
         </motion.div>
-      )}
-    </motion.nav>
+      </motion.nav>
+
+      {/* Global CSS for scroll behavior */}
+      <style>{`
+        html {
+          scroll-behavior: smooth;
+        }
+      `}</style>
+    </>
   );
 }

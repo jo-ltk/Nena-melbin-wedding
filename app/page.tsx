@@ -13,6 +13,8 @@ import WeddingFamilies from '@/components/wedding/WeddingFamilies';
 import WeddingGallery from '@/components/wedding/WeddingGallery';
 
 import WeddingVenue from '@/components/wedding/WeddingVenue';
+import WeddingTravel from '@/components/wedding/WeddingTravel';
+import WeddingFooter from '@/components/wedding/WeddingFooter';
 
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
@@ -30,12 +32,12 @@ export default function Home() {
       <WeddingCountdown />
       <WeddingInvitation />
       <WeddingCeremony />
-      <WeddingReception />
       <WeddingStory />
       <WeddingFamilies />
       <WeddingGallery />
-
+      <WeddingTravel />
       <WeddingVenue />
+      <WeddingFooter />
     </>
   );
 }
