@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function WeddingFamilies() {
   return (
@@ -95,10 +96,12 @@ function FamilyCard({ label, name, parents, address, image, delay }: { label: st
           <div className="absolute inset-[-12px] border-[0.5px] border-[#b8956a]/20 rounded-full rotate-6 group-hover:rotate-12 transition-transform duration-1000" />
           <div className="absolute inset-[-6px] border-[0.5px] border-[#b8956a]/20 rounded-full -rotate-3 group-hover:-rotate-6 transition-transform duration-1000" />
           <div className="relative w-full h-full rounded-full overflow-hidden border-[0.5px] border-[#b8956a]/30 shadow-2xl shadow-[#b8956a]/15">
-            <img 
+            <Image 
               src={image} 
               alt={name} 
-              className="w-full h-full object-cover grayscale-[0.05] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" 
+              fill
+              sizes="(max-width: 768px) 14rem, 18rem"
+              className="object-cover grayscale-[0.05] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" 
             />
             <div className="absolute inset-0 bg-[#b8956a]/5 mix-blend-multiply pointer-events-none" />
           </div>

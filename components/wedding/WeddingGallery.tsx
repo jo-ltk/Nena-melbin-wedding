@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import Image from 'next/image';
 
 const GALLERY_IMAGES = [
   { url: '/gallery/JIJ01597.jpg' },
@@ -71,7 +72,11 @@ export default function WeddingGallery() {
           {GALLERY_IMAGES.map((img, i) => (
             <motion.div
               key={i}
-              className="relative aspect-square overflow-hidden group cursor-pointer shadow-2xl shadow-[#b8956a]/5"
+              className={`relative overflow-hidden group cursor-pointer shadow-2xl shadow-[#b8956a]/5 ${
+                i === GALLERY_IMAGES.length - 1 
+                  ? 'col-span-2 md:col-span-3 lg:col-span-4 aspect-video md:aspect-[21/9]' 
+                  : 'aspect-square'
+              }`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -79,13 +84,19 @@ export default function WeddingGallery() {
               onClick={() => setSelectedIndex(i)}
             >
               <div className="absolute inset-0 w-full h-full">
-                <motion.img 
-                  src={img.url}
-                  alt="Gallery moment"
-                  className="w-full h-full object-cover grayscale-[0.05] contrast-[1.05]"
+                <motion.div 
+                  className="w-full h-full relative"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 2 }}
-                />
+                >
+                  <Image 
+                    src={img.url}
+                    alt="Gallery moment"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover grayscale-[0.05] contrast-[1.05]"
+                  />
+                </motion.div>
                 
                 {/* Subtle Inner Frame (visible on hover) */}
                 <motion.div 
@@ -144,11 +155,14 @@ export default function WeddingGallery() {
               transition={{ duration: 0.4 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <img 
-                src={GALLERY_IMAGES[selectedIndex].url} 
-                alt="Selected moment"
-                className="max-w-full max-h-full w-auto h-auto object-contain shadow-2xl"
-              />
+              <div className="relative w-full h-full max-h-[80vh] md:max-h-[90vh]">
+                <Image 
+                  src={GALLERY_IMAGES[selectedIndex].url} 
+                  alt="Selected moment"
+                  fill
+                  className="object-contain shadow-2xl"
+                />
+              </div>
               
               {/* Counter */}
               <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 font-display text-[10px] md:text-[12px] tracking-[0.4em] text-white/50 uppercase">

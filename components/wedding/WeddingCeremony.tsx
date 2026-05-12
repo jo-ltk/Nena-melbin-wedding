@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Clock, MapPin } from 'lucide-react';
+import Image from 'next/image';
 
 const EVENTS = [
   {
@@ -95,13 +96,19 @@ export default function WeddingCeremony() {
                     {/* Subtle warm tint overlay */}
                     <div className="absolute inset-0 bg-[#b8956a]/5 mix-blend-multiply z-10 pointer-events-none" />
                     
-                    <motion.img 
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-full object-cover grayscale-[0.05] contrast-[1.05]"
+                    <motion.div
+                      className="w-full h-full relative"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 2 }}
-                    />
+                    >
+                      <Image 
+                        src={event.image}
+                        alt={event.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover grayscale-[0.05] contrast-[1.05]"
+                      />
+                    </motion.div>
                     
                     {/* Fade at the bottom for mobile transition */}
                     <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#faf9f6] to-transparent z-10 md:hidden" />
