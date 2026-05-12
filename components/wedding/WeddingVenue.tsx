@@ -25,7 +25,7 @@ const VENUES = [
 export default function WeddingVenue() {
   return (
     <>
-      <section id="venues" className="relative w-full pt-12 pb-12 md:pt-16 md:pb-20 bg-[#faf9f6] overflow-hidden">
+      <section id="venues" className="relative w-full pt-8 pb-12 md:pt-16 md:pb-20 bg-[#faf9f6] overflow-hidden">
         {/* Background Texture */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
              style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
@@ -34,7 +34,7 @@ export default function WeddingVenue() {
           
           {/* Header Section */}
           <motion.div 
-            className="flex flex-col items-center text-center mb-20 md:mb-28"
+            className="flex flex-col items-center text-center mb-10 md:mb-28"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -55,8 +55,8 @@ export default function WeddingVenue() {
           </motion.div>
 
           {/* Venue Cards - Swipeable on mobile, Grid on desktop */}
-          <div className="relative -mx-7 px-7 overflow-x-auto no-scrollbar pb-12 -mb-12">
-            <div className="flex lg:grid lg:grid-cols-2 gap-8 md:gap-16 min-w-max lg:min-w-0">
+          <div className="relative">
+            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 md:gap-16">
               {VENUES.map((venue, i) => (
                 <VenueCard key={i} venue={venue} delay={i * 0.2} />
               ))}
@@ -76,7 +76,7 @@ export default function WeddingVenue() {
 function VenueCard({ venue, delay }: { venue: any, delay: number }) {
   return (
     <motion.div 
-      className="group relative flex flex-col w-[300px] md:w-[450px] lg:w-full bg-white/60 backdrop-blur-md border-[0.5px] border-[#b8956a]/15 shadow-xl shadow-[#b8956a]/5 overflow-hidden"
+      className="group relative flex flex-col w-full bg-white/60 backdrop-blur-md border-[0.5px] border-[#b8956a]/15 shadow-xl shadow-[#b8956a]/5 overflow-hidden"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

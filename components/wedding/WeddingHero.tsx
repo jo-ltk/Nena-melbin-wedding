@@ -1,14 +1,9 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 
-// ─── REPLACE with your actual photo import ───────────────────────────────────
-// import coupleImg from '@/assets/JIJ01543.jpg';
-// Then use: src={coupleImg.src}  (Next.js)  OR  src={coupleImg}  (Vite / CRA)
-// For now we're using a placeholder string so the component compiles.
-const COUPLE_IMAGE = '/JIJ01543.jpg'; // ← put your image in /public/
-// ─────────────────────────────────────────────────────────────────────────────
+const HERO_IMAGES = ['/JIJ01421.jpg', '/JIJ01996.jpg', '/JIJ01918.jpg', '/JIJ00992.jpg'];
 
 export default function WeddingHero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -17,11 +12,20 @@ export default function WeddingHero() {
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-12%']);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       ref={ref}
       id="hero"
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden bg-black"
       style={{ height: '100svh', minHeight: 640 }}
     >
       {/* ── Parallax image ── */}
@@ -29,12 +33,19 @@ export default function WeddingHero() {
         className="absolute inset-0 will-change-transform"
         style={{ y: imgY, scale: 1.08 }}
       >
-        <img
-          src={COUPLE_IMAGE}
-          alt="Nena and Melbin"
-          className="h-full w-full object-cover object-top"
-          style={{ filter: 'brightness(0.95) saturate(1.15) contrast(1.05)' }}
-        />
+        <AnimatePresence>
+          <motion.img
+            key={currentImageIndex}
+            src={HERO_IMAGES[currentImageIndex]}
+            alt="Nena and Melbin"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: 'easeInOut' }}
+            className="absolute inset-0 h-full w-full object-cover object-top"
+            style={{ filter: 'brightness(0.95) saturate(1.15) contrast(1.05)' }}
+          />
+        </AnimatePresence>
       </motion.div>
 
       {/* ── Overlay: bottom fade ── */}

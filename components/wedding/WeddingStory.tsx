@@ -7,19 +7,19 @@ const STORY_MOMENTS = [
   {
     title: 'The Beginning',
     text: 'Brought together by God\'s grace, two paths converged in faith and hope. What began as friendship bloomed into a love that feels written in eternity.',
-    image: 'https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&q=80&fit=crop',
+    image: '/JIJ02472.jpg',
     layout: 'standard'
   },
   {
     title: 'Growing Together',
     text: 'Through seasons of joy and growth, Melbin and Nena discovered in each other a kindred spirit — steadfast, gentle, and full of God\'s purpose.',
-    image: 'https://images.unsplash.com/photo-1583939411023-14783179e581?w=800&q=80&fit=crop',
+    image: '/JIJ02438.jpg',
     layout: 'reverse'
   },
   {
     title: 'The Covenant',
     text: 'Today they stand before God, family, and loved ones, to pledge a love that is patient, kind, and unending — as written in His word.',
-    image: 'https://images.unsplash.com/photo-1606216794079-73bd3b01a7da?w=800&q=80&fit=crop',
+    image: '/JIJ02260.jpg',
     layout: 'standard'
   }
 ];
@@ -45,7 +45,7 @@ export default function WeddingStory() {
         
         {/* Header Section */}
         <motion.div 
-          className="flex flex-col items-center text-center mb-28 md:mb-40"
+          className="flex flex-col items-center text-center mb-12 md:mb-40"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -66,7 +66,7 @@ export default function WeddingStory() {
         </motion.div>
 
         {/* Story Collage */}
-        <div className="space-y-32 md:space-y-64">
+        <div className="space-y-16 md:space-y-64">
           {STORY_MOMENTS.map((moment, i) => (
             <StoryBlock key={i} moment={moment} index={i} />
           ))}
@@ -80,7 +80,7 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
   const isReverse = moment.layout === 'reverse';
   
   return (
-    <div className={`flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 md:gap-24`}>
+    <div className={`flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-24`}>
       {/* Image Block */}
       <motion.div 
         className="w-full md:w-[55%] relative"

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function WeddingFamilies() {
   return (
-    <section className="relative w-full pb-12 md:pb-20 bg-[#faf9f6] overflow-hidden">
+    <section className="relative w-full pt-10 pb-8 md:pt-24 md:pb-20 bg-[#faf9f6] overflow-hidden">
       {/* Background Texture */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
@@ -13,7 +13,7 @@ export default function WeddingFamilies() {
         
         {/* Header Section */}
         <motion.div 
-          className="flex flex-col items-center text-center mb-12 md:mb-16"
+          className="flex flex-col items-center text-center mb-8 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -45,6 +45,7 @@ export default function WeddingFamilies() {
           <FamilyCard 
             label="The Groom"
             name="Melbin C Varghese"
+            image="/JIJ00965.jpg"
             parents="Son of Mr. Varghese C O & Mrs. Sarakutty Varghese"
             address="Chathanayathu House, Ramamangalam, Muvattupuzha"
             delay={0.2}
@@ -54,6 +55,7 @@ export default function WeddingFamilies() {
           <FamilyCard 
             label="The Bride"
             name="Dr. Nena Mathew"
+            image="/JIJ00953.jpg"
             parents="Daughter of Mr. Mathew Varghese & Mrs. Elsamma Mathew"
             address="Valiyaveettil House, Punnavely, Mallapally"
             delay={0.4}
@@ -65,10 +67,10 @@ export default function WeddingFamilies() {
   );
 }
 
-function FamilyCard({ label, name, parents, address, delay }: { label: string, name: string, parents: string, address: string, delay: number }) {
+function FamilyCard({ label, name, parents, address, image, delay }: { label: string, name: string, parents: string, address: string, image?: string, delay: number }) {
   return (
     <motion.div 
-      className="flex flex-col items-center text-center p-10 md:p-16 border-[0.5px] border-[rgba(184,149,106,0.15)] bg-white/50 backdrop-blur-[2px] shadow-2xl shadow-[#b8956a]/5 relative group min-h-[360px] md:min-h-[420px] justify-center"
+      className="flex flex-col items-center text-center p-6 md:p-10 border-[0.5px] border-[rgba(184,149,106,0.15)] bg-white/50 backdrop-blur-[2px] shadow-2xl shadow-[#b8956a]/5 relative group min-h-fit justify-center py-10 md:py-16"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -76,30 +78,46 @@ function FamilyCard({ label, name, parents, address, delay }: { label: string, n
     >
       {/* Botanical Drawing (Subtle Wedding Vibe) */}
       <div className="absolute top-4 right-4 opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-700">
-        <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10 90Q30 70 50 80T90 60M30 85Q45 75 55 85M65 75Q75 65 85 75" stroke="#b8956a" strokeWidth="0.5" strokeLinecap="round"/>
           <circle cx="90" cy="60" r="1.5" fill="#b8956a" fillOpacity="0.3"/>
         </svg>
       </div>
 
       {/* Label */}
-      <span className="font-display text-[9px] tracking-[0.5em] text-[#b8956a] uppercase mb-8 block font-light">
+      <span className="font-display text-[9px] tracking-[0.5em] text-[#b8956a] uppercase mb-6 block font-light">
         {label}
       </span>
       
+      {/* Photo Frame (if available) - Increased Size */}
+      {image && (
+        <div className="mb-8 relative w-56 h-56 md:w-72 md:h-72">
+          <div className="absolute inset-[-12px] border-[0.5px] border-[#b8956a]/20 rounded-full rotate-6 group-hover:rotate-12 transition-transform duration-1000" />
+          <div className="absolute inset-[-6px] border-[0.5px] border-[#b8956a]/20 rounded-full -rotate-3 group-hover:-rotate-6 transition-transform duration-1000" />
+          <div className="relative w-full h-full rounded-full overflow-hidden border-[0.5px] border-[#b8956a]/30 shadow-2xl shadow-[#b8956a]/15">
+            <img 
+              src={image} 
+              alt={name} 
+              className="w-full h-full object-cover grayscale-[0.05] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" 
+            />
+            <div className="absolute inset-0 bg-[#b8956a]/5 mix-blend-multiply pointer-events-none" />
+          </div>
+        </div>
+      )}
+
       {/* Central Ornament */}
-      <div className="mb-10 w-10 h-[0.5px] bg-[#b8956a]/30" />
+      <div className="mb-6 w-12 h-[0.5px] bg-[#b8956a]/30" />
 
       {/* Content */}
-      <div className="space-y-5">
-        <h3 className="font-serif text-[30px] md:text-[40px] text-[#1a1816] leading-tight font-light">
+      <div className="space-y-4">
+        <h3 className="font-serif text-[32px] md:text-[44px] text-[#1a1816] leading-tight font-light">
           {name}
         </h3>
-        <p className="font-serif text-[17px] md:text-[20px] text-[#2a2622]/80 font-light italic">
+        <p className="font-serif text-[18px] md:text-[22px] text-[#2a2622]/80 font-light italic">
           {parents}
         </p>
-        <div className="pt-4">
-          <p className="font-sans text-[11px] tracking-widest text-[#b8956a]/60 uppercase leading-relaxed max-w-[280px]">
+        <div className="pt-2">
+          <p className="font-sans text-[11px] tracking-widest text-[#b8956a]/60 uppercase leading-relaxed max-w-[320px] mx-auto">
             {address}
           </p>
         </div>

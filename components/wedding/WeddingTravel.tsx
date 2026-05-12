@@ -24,7 +24,7 @@ const TRAVEL_MODES = [
 export default function WeddingTravel() {
   return (
     <>
-      <section id="travel" className="relative w-full pt-12 pb-12 md:pt-20 md:pb-16 bg-[#faf9f6] overflow-hidden">
+      <section id="travel" className="relative w-full pt-8 pb-12 md:pt-20 md:pb-16 bg-[#faf9f6] overflow-hidden">
         {/* Background Texture */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
              style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
@@ -33,7 +33,7 @@ export default function WeddingTravel() {
           
           {/* Header Section */}
           <motion.div 
-            className="flex flex-col items-center text-center mb-12 md:mb-16"
+            className="flex flex-col items-center text-center mb-8 md:mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -50,12 +50,12 @@ export default function WeddingTravel() {
           </motion.div>
 
           {/* Travel Cards - Swipeable on mobile, Grid on desktop */}
-          <div className="relative -mx-7 px-7 overflow-x-auto no-scrollbar pb-8 -mb-8">
-            <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-10 min-w-max md:min-w-0">
+          <div className="relative">
+            <div className="flex flex-col md:grid md:grid-cols-3 gap-6 md:gap-10">
               {TRAVEL_MODES.map((mode, i) => (
                 <motion.div 
                   key={i}
-                  className="w-[280px] md:w-full flex flex-col items-start text-left p-8 md:p-12 bg-white/60 backdrop-blur-md border-[0.5px] border-[#b8956a]/10 shadow-xl shadow-[#b8956a]/5 relative group"
+                  className="w-full flex flex-col items-start text-left p-8 md:p-12 bg-white/60 backdrop-blur-md border-[0.5px] border-[#b8956a]/10 shadow-xl shadow-[#b8956a]/5 relative group"
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}

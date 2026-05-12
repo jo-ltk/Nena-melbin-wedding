@@ -5,14 +5,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const GALLERY_IMAGES = [
-  { url: 'https://images.unsplash.com/photo-1606216794079-73bd3b01a7da?w=1000&q=80', size: 'large' },
-  { url: 'https://images.unsplash.com/photo-1583939411023-14783179e581?w=800&q=80', size: 'tall' },
-  { url: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80', size: 'small' },
-  { url: 'https://images.unsplash.com/photo-1529636798458-92182e662485?w=1000&q=80', size: 'wide' },
-  { url: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800&q=80', size: 'small' },
-  { url: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1000&q=80', size: 'large' },
-  { url: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80', size: 'tall' },
-  { url: 'https://images.unsplash.com/photo-1605723517503-3cadb5818a0c?w=1000&q=80', size: 'wide' },
+  { url: '/gallery/JIJ01597.jpg' },
+  { url: '/gallery/JIJ01663.jpg' },
+  { url: '/gallery/JIJ02080.jpg' },
+  { url: '/gallery/JIJ02157.jpg' },
+  { url: '/gallery/JIJ02358.jpg' },
+  { url: '/gallery/JIJ02918.jpg' },
+  { url: '/gallery/JIJ02942.jpg' },
+  { url: '/gallery/JIJ02976.jpg' },
+  { url: '/gallery/JIJ02140.jpg' },
+  { url: '/gallery/JIJ02815.jpg' },
+  { url: '/gallery/JIJ02583.jpg' },
+  { url: '/gallery/JIJ01918.jpg' },
+  { url: '/gallery/JIJ00992.jpg' },
 ];
 
 export default function WeddingGallery() {
@@ -33,14 +38,14 @@ export default function WeddingGallery() {
   };
 
   return (
-    <section id="gallery" className="relative w-full bg-[#faf9f6] pt-16 pb-12 md:pt-24 md:pb-20 px-6 overflow-hidden">
+    <section id="gallery" className="relative w-full bg-[#faf9f6] pt-8 pb-12 md:pt-24 md:pb-20 px-6 overflow-hidden">
       {/* Background Texture */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
 
       {/* Header Section */}
       <motion.div 
-        className="flex flex-col items-center text-center mb-12 md:mb-16"
+        className="flex flex-col items-center text-center mb-10 md:mb-16"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -62,18 +67,18 @@ export default function WeddingGallery() {
 
       {/* Grid Layout */}
       <div className="max-w-[1400px] mx-auto">
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {GALLERY_IMAGES.map((img, i) => (
             <motion.div
               key={i}
-              className="relative overflow-hidden break-inside-avoid group cursor-pointer"
+              className="relative aspect-square overflow-hidden group cursor-pointer shadow-2xl shadow-[#b8956a]/5"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.05 }}
+              transition={{ duration: 0.8, delay: (i % 4) * 0.1 }}
               onClick={() => setSelectedIndex(i)}
             >
-              <div className="relative overflow-hidden shadow-2xl shadow-[#b8956a]/5">
+              <div className="absolute inset-0 w-full h-full">
                 <motion.img 
                   src={img.url}
                   alt="Gallery moment"
@@ -115,7 +120,7 @@ export default function WeddingGallery() {
             </button>
 
             {/* Navigation */}
-            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 md:px-12 pointer-events-none">
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 md:px-12 pointer-events-none z-[110]">
               <button 
                 onClick={handlePrevious}
                 className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all"
@@ -132,7 +137,7 @@ export default function WeddingGallery() {
 
             {/* Selected Image */}
             <motion.div 
-              className="relative max-w-[90vw] max-h-[85vh] overflow-hidden shadow-2xl"
+              className="relative w-full h-full flex flex-col items-center justify-center p-4 md:p-12"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -142,11 +147,11 @@ export default function WeddingGallery() {
               <img 
                 src={GALLERY_IMAGES[selectedIndex].url} 
                 alt="Selected moment"
-                className="w-full h-full object-contain"
+                className="max-w-full max-h-full w-auto h-auto object-contain shadow-2xl"
               />
               
               {/* Counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-display text-[10px] tracking-[0.4em] text-white/40 uppercase">
+              <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 font-display text-[10px] md:text-[12px] tracking-[0.4em] text-white/50 uppercase">
                 {selectedIndex + 1} / {GALLERY_IMAGES.length}
               </div>
             </motion.div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Heart, Church, GlassWater, Image as ImageIcon, MapPin, Mail, Home } from 'lucide-react';
 
 const NAV_LINKS = [
@@ -15,20 +15,36 @@ const NAV_LINKS = [
 ];
 
 export default function WeddingNav() {
+  const [isHidden, setIsHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    const diff = latest - previous;
+    const threshold = 10;
+
+    if (latest < 100) {
+      setIsHidden(false);
+    } else if (diff > threshold) {
+      setIsHidden(true);
+    } else if (diff < -threshold) {
+      setIsHidden(false);
+    }
+
+    setScrolled(latest > 50);
+  });
+
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
-      // Update active section based on scroll position
+    const updateActiveSection = () => {
       const sections = NAV_LINKS.map(link => link.href.substring(1));
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
+          if (rect.top <= 150 && rect.bottom >= 150) {
             setActiveSection(section);
             break;
           }
@@ -36,15 +52,19 @@ export default function WeddingNav() {
       }
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    return () => window.removeEventListener('scroll', updateActiveSection);
   }, []);
 
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
+        variants={{
+          visible: { y: 0, opacity: 1 },
+          hidden: { y: -100, opacity: 0 }
+        }}
+        animate={isHidden ? "hidden" : "visible"}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-6 pointer-events-none"
       >
         <motion.div

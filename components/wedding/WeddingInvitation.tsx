@@ -32,7 +32,7 @@ export default function WeddingInvitation() {
   };
 
   return (
-    <section id="rsvp" className="relative w-full py-16 md:py-24 px-7 overflow-hidden" style={{ backgroundColor: '#faf9f6' }}>
+    <section id="rsvp" className="relative w-full py-10 md:py-16 px-7 overflow-hidden" style={{ backgroundColor: '#faf9f6' }}>
       {/* Subtle Background Texture */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
@@ -45,7 +45,7 @@ export default function WeddingInvitation() {
         viewport={{ once: true, margin: "-50px" }}
       >
         {/* The "Invitation Card" Frame - FOCUSED WIDTH */}
-        <div className="flex flex-col items-center text-center py-12 px-6 md:px-16 relative">
+        <div className="flex flex-col items-center text-center py-8 md:py-12 px-6 md:px-16 relative">
           
           {/* Animated Border Frame */}
           <motion.div 
@@ -57,7 +57,7 @@ export default function WeddingInvitation() {
           />
           
           {/* Top Ornament - Minimalist Cross */}
-          <motion.div variants={itemVariants} className="mb-8">
+          <motion.div variants={itemVariants} className="mb-4 md:mb-8">
             <svg width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <motion.path 
                 initial={{ pathLength: 0 }}
@@ -79,7 +79,7 @@ export default function WeddingInvitation() {
           </motion.div>
 
           {/* Main Text - BIG & BALANCED */}
-          <div className="space-y-6 mb-12 w-full">
+          <div className="space-y-4 md:space-y-6 mb-8 md:mb-12 w-full">
             <motion.p
               variants={itemVariants}
               style={{
@@ -116,7 +116,7 @@ export default function WeddingInvitation() {
           {/* Bottom Ornament - Wide Divider */}
           <motion.div
             variants={lineVariants}
-            className="w-24 h-[0.5px] bg-[rgba(184,149,106,0.3)] mb-8"
+            className="w-24 h-[0.5px] bg-[rgba(184,149,106,0.3)] mb-6 md:mb-8"
           />
 
           {/* Bible Verse */}
