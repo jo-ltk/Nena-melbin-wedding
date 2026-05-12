@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
+import ParallaxImage from './ParallaxImage';
 
 const GALLERY_IMAGES = [
   { url: '/gallery/JIJ01597.jpg' },
@@ -84,19 +85,21 @@ export default function WeddingGallery() {
               onClick={() => setSelectedIndex(i)}
             >
               <div className="absolute inset-0 w-full h-full">
-                <motion.div 
-                  className="w-full h-full relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 2 }}
-                >
-                  <Image 
-                    src={img.url}
-                    alt="Gallery moment"
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover grayscale-[0.05] contrast-[1.05]"
-                  />
-                </motion.div>
+                <ParallaxImage className="absolute inset-0 w-full h-full" offset={10}>
+                  <motion.div 
+                    className="w-full h-full relative"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 2 }}
+                  >
+                    <Image 
+                      src={img.url}
+                      alt="Gallery moment"
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-cover grayscale-[0.05] contrast-[1.05]"
+                    />
+                  </motion.div>
+                </ParallaxImage>
                 
                 {/* Subtle Inner Frame (visible on hover) */}
                 <motion.div 

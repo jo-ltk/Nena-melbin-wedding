@@ -3,13 +3,13 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
+import ParallaxImage from './ParallaxImage';
 
 const HERO_IMAGES = ['/JIJ01996.jpg', '/JIJ01918.jpg'];
 
 export default function WeddingHero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-12%']);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
@@ -30,9 +30,11 @@ export default function WeddingHero() {
       style={{ height: '100svh', minHeight: 640 }}
     >
       {/* ── Parallax image ── */}
-      <motion.div
-        className="absolute inset-0 will-change-transform"
-        style={{ y: imgY, scale: 1.08 }}
+      <ParallaxImage 
+        className="absolute inset-0"
+        scrollOffset={['start start', 'end start']}
+        yRange={['0%', '20%']}
+        scaleOverride={1.08}
       >
         <AnimatePresence>
           <motion.div
@@ -55,7 +57,7 @@ export default function WeddingHero() {
             />
           </motion.div>
         </AnimatePresence>
-      </motion.div>
+      </ParallaxImage>
 
       {/* ── Overlay: bottom fade ── */}
       <div

@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
+import ParallaxImage from './ParallaxImage';
 
 const STORY_MOMENTS = [
   {
@@ -91,19 +92,21 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="relative aspect-[4/3] md:aspect-[3/2] overflow-hidden group shadow-2xl shadow-[#b8956a]/5">
-          <motion.div 
-            className="w-full h-full relative"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 2 }}
-          >
-            <Image 
-              src={moment.image} 
-              alt={moment.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover grayscale-[0.1] contrast-[1.05]"
-            />
-          </motion.div>
+          <ParallaxImage className="absolute inset-0 w-full h-full" offset={10}>
+            <motion.div 
+              className="w-full h-full relative"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 2 }}
+            >
+              <Image 
+                src={moment.image} 
+                alt={moment.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover grayscale-[0.1] contrast-[1.05]"
+              />
+            </motion.div>
+          </ParallaxImage>
           <div className="absolute inset-0 bg-[#b8956a]/5 mix-blend-multiply pointer-events-none" />
           <div className="absolute inset-6 border-[0.5px] border-white/30 z-10 pointer-events-none" />
         </div>
