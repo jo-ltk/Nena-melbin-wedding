@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://nena-melbin-wedding.vercel.app'),
   title: 'Melbin & Nena | Wedding Day',
   description:
     'Join us as we celebrate our love with the blessing of God and our families. 31 May 2026 · St. Athanasius Cathedral, Kolencherry, Kerala.',
