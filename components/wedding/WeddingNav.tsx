@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
-import { Heart, Church, GlassWater, Image as ImageIcon, MapPin, Mail, Home, LucideProps } from 'lucide-react';
+import { Heart, Church, MapPin, Mail, Home, LucideProps } from 'lucide-react';
 import FloatingMonogram from './FloatingMonogram';
 import WeddingRSVP from './WeddingRSVP';
 import { X } from 'lucide-react';
@@ -11,8 +11,6 @@ const NAV_LINKS = [
   { icon: <Home size={18} strokeWidth={1.5} />, label: 'Home', href: '#hero' },
   { icon: <Heart size={18} strokeWidth={1.5} />, label: 'Story', href: '#story' },
   { icon: <Church size={18} strokeWidth={1.5} />, label: 'Ceremony', href: '#ceremony' },
-  { icon: <GlassWater size={18} strokeWidth={1.5} />, label: 'Reception', href: '#reception' },
-  { icon: <ImageIcon size={18} strokeWidth={1.5} />, label: 'Gallery', href: '#gallery' },
   { icon: <MapPin size={18} strokeWidth={1.5} />, label: 'Travel', href: '#travel' },
   { icon: <Mail size={18} strokeWidth={1.5} />, label: 'RSVP', href: '#rsvp' },
 ];
