@@ -19,12 +19,27 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     type: 'website',
     url: 'https://nena-melbin-wedding.vercel.app',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 800,
+        height: 420,
+        alt: 'Melbin & Nena Wedding',
+      },
+      {
+        url: '/og-preview-small.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Melbin & Nena Wedding',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Melbin & Nena | Wedding Day',
     description:
       '31 May 2026 · St. Athanasius Cathedral, Kolencherry, Kerala. Celebrate with us!',
+    images: ['/opengraph-image', '/og-preview-small.jpg'],
   },
 }
 
