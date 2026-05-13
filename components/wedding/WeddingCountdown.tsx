@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HeadingReveal } from './HeadingReveal';
+import confetti from 'canvas-confetti';
 
 interface CountdownState {
   days: number;
@@ -19,8 +20,22 @@ export default function WeddingCountdown() {
     seconds: 0,
   });
   const [hasEnded, setHasEnded] = useState(false);
+  const [hasPopped, setHasPopped] = useState(false);
   
-  const countdownRef = useRef(countdown);
+  const handleCracker = () => {
+    if (hasPopped) return;
+    setHasPopped(true);
+    
+    // Elegant center burst
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { x: 0.5, y: 0.5 },
+      colors: ['#b8956a', '#d4b896', '#ffffff'],
+      scalar: 1,
+      zIndex: 100,
+    });
+  };
 
   useEffect(() => {
     const calculateCountdown = () => {
@@ -89,7 +104,12 @@ export default function WeddingCountdown() {
   );
 
   return (
-    <section className="relative w-full py-24 md:py-32 overflow-hidden" style={{ backgroundColor: '#1a0808' }}>
+    <motion.section 
+      className="relative w-full py-24 md:py-32 overflow-hidden" 
+      style={{ backgroundColor: '#1a0808' }}
+      onViewportEnter={handleCracker}
+      viewport={{ amount: 0.5, once: true }}
+    >
       {/* Background grain/texture effect */}
       <div className="absolute inset-0 opacity-[0.04] pointer-events-none" 
            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
@@ -178,6 +198,6 @@ export default function WeddingCountdown() {
           )}
         </AnimatePresence>
       </div>
-    </section>
+    </motion.section>
   );
 }

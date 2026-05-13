@@ -107,47 +107,42 @@ export default function WeddingGallery() {
         </div>
       </div>
 
-      {/* Lightbox */}
+      {/* Lightbox Modal */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div 
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0806]/98 backdrop-blur-md"
+            className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedIndex(null)}
           >
-            {/* Close Button */}
-            <button className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-[110]">
-              <X size={32} strokeWidth={1} />
+            {/* Backdrop with enhanced glassmorphism */}
+            <motion.div 
+              className="absolute inset-0 bg-[#0a0806]/95 backdrop-blur-xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedIndex(null)}
+            />
+
+            {/* Close Button - High Z-index and mobile optimized */}
+            <button 
+              onClick={() => setSelectedIndex(null)}
+              className="absolute top-6 right-6 md:top-10 md:right-10 text-white/40 hover:text-white transition-all z-[170] p-2 hover:bg-white/10 rounded-full"
+            >
+              <X size={28} strokeWidth={1} />
             </button>
 
-            {/* Navigation */}
-            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 md:px-12 pointer-events-none z-[110]">
-              <button 
-                onClick={handlePrevious}
-                className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-black/20 backdrop-blur-sm"
-              >
-                <ChevronLeft size={24} strokeWidth={1} />
-              </button>
-              <button 
-                onClick={handleNext}
-                className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-black/20 backdrop-blur-sm"
-              >
-                <ChevronRight size={24} strokeWidth={1} />
-              </button>
-            </div>
-
-            {/* Selected Image */}
+            {/* Content Container - Centered and responsive */}
             <motion.div 
-              className="relative w-full h-full flex flex-col items-center justify-center p-4 md:p-12"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="relative w-full max-w-5xl h-full flex flex-col items-center justify-center z-[160]"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full h-full max-h-[85vh] md:max-h-[90vh]">
+              <div className="relative w-full h-full max-h-[75vh] md:max-h-[85vh] shadow-2xl shadow-black/50">
                 <Image 
                   src={GALLERY_IMAGES[selectedIndex].url} 
                   alt="Selected moment"
@@ -157,9 +152,27 @@ export default function WeddingGallery() {
                 />
               </div>
               
-              {/* Counter */}
-              <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 font-display text-[10px] md:text-[12px] tracking-[0.4em] text-white/30 uppercase">
-                {selectedIndex + 1} / {GALLERY_IMAGES.length}
+              {/* Controls and Info */}
+              <div className="mt-8 flex flex-col items-center gap-6 w-full">
+                <div className="flex items-center gap-8">
+                  <button 
+                    onClick={handlePrevious}
+                    className="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-white/5 backdrop-blur-sm"
+                  >
+                    <ChevronLeft size={20} strokeWidth={1} />
+                  </button>
+                  
+                  <div className="font-display text-[10px] md:text-[12px] tracking-[0.4em] text-white/40 uppercase">
+                    {selectedIndex + 1} <span className="mx-2 text-white/10">/</span> {GALLERY_IMAGES.length}
+                  </div>
+
+                  <button 
+                    onClick={handleNext}
+                    className="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-white/5 backdrop-blur-sm"
+                  >
+                    <ChevronRight size={20} strokeWidth={1} />
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>

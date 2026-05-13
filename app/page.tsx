@@ -11,22 +11,20 @@ import WeddingStory from '@/components/wedding/WeddingStory';
 import WeddingFamilies from '@/components/wedding/WeddingFamilies';
 import WeddingGallery from '@/components/wedding/WeddingGallery';
 
-import WeddingVenue from '@/components/wedding/WeddingVenue';
 import WeddingTravel from '@/components/wedding/WeddingTravel';
+import WeddingVenue from '@/components/wedding/WeddingVenue';
+import WeddingRSVP from '@/components/wedding/WeddingRSVP';
 import WeddingFooter from '@/components/wedding/WeddingFooter';
-import FloatingMonogram from '@/components/wedding/FloatingMonogram';
 
 export default function Home() {
-
   return (
     <>
-
       <WeddingNav />
-      <FloatingMonogram />
       <WeddingHero />
       <WeddingCountdown />
       <WeddingInvitation />
       <WeddingCeremony />
+      <WeddingReception />
       <WeddingStory />
       <WeddingFamilies />
       <WeddingGallery />

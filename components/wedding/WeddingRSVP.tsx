@@ -14,7 +14,7 @@ interface FormData {
   message: string;
 }
 
-export default function WeddingRSVP() {
+export default function WeddingRSVP({ isModal = false }: { isModal?: boolean }) {
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',
@@ -49,6 +49,44 @@ export default function WeddingRSVP() {
     }, 3000);
   };
 
+  const content = (
+    <motion.div
+      className="relative max-w-2xl mx-auto"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
+      {/* Header */}
+      <div className="text-center mb-12">
+        <h2
+          className="font-display text-gold uppercase mb-4"
+          style={{ fontSize: '0.6rem', letterSpacing: '0.25em' }}
+        >
+          Will You Join Us?
+        </h2>
+        <HeadingReveal
+          as="h1"
+          className="font-serif italic text-cream font-light mb-6"
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}
+        >
+          RSVP
+        </HeadingReveal>
+        <p className="font-sans text-cream opacity-50 text-sm mb-6" style={{ fontWeight: 300 }}>
+          Please respond by 20 May 2026
+        </p>
+        <div className="w-12 h-px bg-gold mx-auto opacity-50" />
+      </div>
+
+      {/* Form or Success Message */}
+      <AnimatedContent submitted={submitted} formData={formData} onSubmit={handleSubmit} onChange={handleChange} />
+    </motion.div>
+  );
+
+  if (isModal) {
+    return <div className="relative z-10">{content}</div>;
+  }
+
   return (
     <section id="rsvp" className="w-full py-24 md:py-32 px-6 relative overflow-hidden"
       style={{
@@ -64,38 +102,7 @@ export default function WeddingRSVP() {
           backgroundSize: '400px 400px',
         }}
       />
-
-      <motion.div
-        className="relative max-w-2xl mx-auto"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2
-            className="font-display text-gold uppercase mb-4"
-            style={{ fontSize: '0.6rem', letterSpacing: '0.25em' }}
-          >
-            Will You Join Us?
-          </h2>
-          <HeadingReveal
-            as="h1"
-            className="font-serif italic text-cream font-light mb-6"
-            style={{ fontSize: 'clamp(3rem, 6vw, 5rem)' }}
-          >
-            RSVP
-          </HeadingReveal>
-          <p className="font-sans text-cream opacity-50 text-sm mb-6" style={{ fontWeight: 300 }}>
-            Please respond by 20 May 2026
-          </p>
-          <div className="w-12 h-px bg-gold mx-auto opacity-50" />
-        </div>
-
-        {/* Form or Success Message */}
-        <AnimatedContent submitted={submitted} formData={formData} onSubmit={handleSubmit} onChange={handleChange} />
-      </motion.div>
+      {content}
     </section>
   );
 }
