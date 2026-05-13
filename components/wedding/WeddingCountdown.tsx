@@ -170,7 +170,7 @@ export default function WeddingCountdown() {
                   marginTop: 16
                 }}
               >
-                Nena & Melbin • May 31, 2026
+                Melbin & Nena • May 31, 2026
               </p>
             </motion.div>
           )}

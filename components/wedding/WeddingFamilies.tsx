@@ -56,7 +56,7 @@ export default function WeddingFamilies() {
           {/* Bride's Family */}
           <FamilyCard 
             label="The Bride"
-            name="Dr. Nena Mathew"
+            name="Nena Mathew"
             image="/JIJ00953.jpg"
             parents="Daughter of Mr. Mathew Varghese & Mrs. Elsamma Mathew"
             address="Valiyaveettil House, Punnavely, Mallapally"

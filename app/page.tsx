@@ -15,6 +15,7 @@ import WeddingGallery from '@/components/wedding/WeddingGallery';
 import WeddingVenue from '@/components/wedding/WeddingVenue';
 import WeddingTravel from '@/components/wedding/WeddingTravel';
 import WeddingFooter from '@/components/wedding/WeddingFooter';
+import FloatingMonogram from '@/components/wedding/FloatingMonogram';
 
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
@@ -28,6 +29,7 @@ export default function Home() {
     <>
       {showLoader && <WeddingLoader />}
       <WeddingNav />
+      <FloatingMonogram />
       <WeddingHero />
       <WeddingCountdown />
       <WeddingInvitation />

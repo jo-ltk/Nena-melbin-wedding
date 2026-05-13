@@ -7,19 +7,15 @@ import Image from 'next/image';
 import ParallaxImage from './ParallaxImage';
 
 const GALLERY_IMAGES = [
-  { url: '/gallery/JIJ01597.jpg' },
-  { url: '/gallery/JIJ01663.jpg' },
-  { url: '/gallery/JIJ02080.jpg' },
-  { url: '/gallery/JIJ02157.jpg' },
-  { url: '/gallery/JIJ02358.jpg' },
-  { url: '/gallery/JIJ02918.jpg' },
-  { url: '/gallery/JIJ02942.jpg' },
-  { url: '/gallery/JIJ02976.jpg' },
-  { url: '/gallery/JIJ02140.jpg' },
-  { url: '/gallery/JIJ02815.jpg' },
-  { url: '/gallery/JIJ02583.jpg' },
-  { url: '/gallery/JIJ01918.jpg' },
-  { url: '/gallery/JIJ00992.jpg' },
+  { url: '/gallery/JIJ01663.jpg', span: 'md:col-span-1 md:row-span-1' },
+  { url: '/gallery/JIJ02080.jpg', span: 'md:col-span-1 md:row-span-2' }, // Tall
+  { url: '/gallery/JIJ02918.jpg', span: 'md:col-span-2 md:row-span-1' }, // Wide
+  { url: '/gallery/JIJ02942.jpg', span: 'md:col-span-1 md:row-span-1' },
+  { url: '/gallery/JIJ02140.jpg', span: 'md:col-span-2 md:row-span-2' }, // Large square
+  { url: '/gallery/JIJ02815.jpg', span: 'md:col-span-1 md:row-span-1' },
+  { url: '/gallery/JIJ02583.jpg', span: 'md:col-span-1 md:row-span-1' },
+  { url: '/gallery/JIJ01918.jpg', span: 'md:col-span-2 md:row-span-1' }, // Wide
+  { url: '/gallery/JIJ00992.jpg', span: 'col-span-2 md:col-span-4 md:row-span-1', position: 'object-[center_30%]' },
 ];
 
 export default function WeddingGallery() {
@@ -40,12 +36,12 @@ export default function WeddingGallery() {
   };
 
   return (
-    <section id="gallery" className="relative w-full bg-[#faf9f6] pt-8 pb-12 md:pt-24 md:pb-20 px-6 overflow-hidden">
+    <section id="gallery" className="relative w-full bg-[#faf9f6] pb-20 px-6 overflow-hidden">
       {/* Background Texture */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
 
-      {/* Header Section */}
+      {/* Header Section - Compacted as requested */}
       <motion.div 
         className="flex flex-col items-center text-center mb-10 md:mb-16"
         initial={{ opacity: 0, y: 20 }}
@@ -53,11 +49,8 @@ export default function WeddingGallery() {
         viewport={{ once: true }}
         transition={{ duration: 1.2 }}
       >
-        <span className="font-display text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-4">
-          A Glimpse of Us
-        </span>
-        <h2 className="font-serif italic font-light text-[#1a1816] leading-tight mb-8"
-            style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
+        <h2 className="font-serif italic font-light text-[#1a1816] leading-tight mb-6"
+            style={{ fontSize: 'clamp(3rem, 7vw, 5rem)' }}>
           Gallery
         </h2>
         <div className="flex items-center gap-4 w-24">
@@ -67,51 +60,43 @@ export default function WeddingGallery() {
         </div>
       </motion.div>
 
-      {/* Grid Layout */}
+      {/* Collage Layout */}
       <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] md:auto-rows-[250px] gap-3 md:gap-4 grid-flow-dense">
           {GALLERY_IMAGES.map((img, i) => (
             <motion.div
               key={i}
-              className={`relative overflow-hidden group cursor-pointer shadow-2xl shadow-[#b8956a]/5 ${
-                i === GALLERY_IMAGES.length - 1 
-                  ? 'col-span-2 md:col-span-3 lg:col-span-4 aspect-video md:aspect-[21/9]' 
-                  : 'aspect-square'
-              }`}
+              className={`relative overflow-hidden group cursor-pointer shadow-xl shadow-[#b8956a]/5 rounded-sm ${img.span}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: (i % 4) * 0.1 }}
+              transition={{ duration: 0.8, delay: i * 0.05 }}
               onClick={() => setSelectedIndex(i)}
             >
               <div className="absolute inset-0 w-full h-full">
-                <ParallaxImage className="absolute inset-0 w-full h-full" offset={10}>
+                <ParallaxImage className="absolute inset-0 w-full h-full" offset={5}>
                   <motion.div 
                     className="w-full h-full relative"
                     whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 2 }}
+                    transition={{ duration: 1.5 }}
                   >
                     <Image 
                       src={img.url}
                       alt="Gallery moment"
                       fill
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      className="object-cover grayscale-[0.05] contrast-[1.05]"
+                      sizes="(max-width: 768px) 50vw, 33vw"
+                      className={`object-cover ${img.position || 'object-top'} grayscale-[0.02] contrast-[1.02]`}
                     />
                   </motion.div>
                 </ParallaxImage>
                 
-                {/* Subtle Inner Frame (visible on hover) */}
-                <motion.div 
-                  className="absolute inset-4 border-[0.5px] border-white/40 z-10 pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                />
-                
                 {/* Hover Veil */}
                 <motion.div 
-                  className="absolute inset-0 bg-[#b8956a]/5 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                  className="absolute inset-0 bg-[#b8956a]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 />
+                
+                {/* Inner Frame */}
+                <div className="absolute inset-3 border-[0.5px] border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
               </div>
             </motion.div>
           ))}
@@ -122,7 +107,7 @@ export default function WeddingGallery() {
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div 
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0806]/98 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0806]/98 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -137,13 +122,13 @@ export default function WeddingGallery() {
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 md:px-12 pointer-events-none z-[110]">
               <button 
                 onClick={handlePrevious}
-                className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all"
+                className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-black/20 backdrop-blur-sm"
               >
                 <ChevronLeft size={24} strokeWidth={1} />
               </button>
               <button 
                 onClick={handleNext}
-                className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all"
+                className="pointer-events-auto w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-black/20 backdrop-blur-sm"
               >
                 <ChevronRight size={24} strokeWidth={1} />
               </button>
@@ -152,23 +137,24 @@ export default function WeddingGallery() {
             {/* Selected Image */}
             <motion.div 
               className="relative w-full h-full flex flex-col items-center justify-center p-4 md:p-12"
-              initial={{ scale: 0.95, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full h-full max-h-[80vh] md:max-h-[90vh]">
+              <div className="relative w-full h-full max-h-[85vh] md:max-h-[90vh]">
                 <Image 
                   src={GALLERY_IMAGES[selectedIndex].url} 
                   alt="Selected moment"
                   fill
-                  className="object-contain shadow-2xl"
+                  className="object-contain"
+                  priority
                 />
               </div>
               
               {/* Counter */}
-              <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 font-display text-[10px] md:text-[12px] tracking-[0.4em] text-white/50 uppercase">
+              <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 font-display text-[10px] md:text-[12px] tracking-[0.4em] text-white/30 uppercase">
                 {selectedIndex + 1} / {GALLERY_IMAGES.length}
               </div>
             </motion.div>

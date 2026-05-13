@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import ParallaxImage from './ParallaxImage';
 
-const HERO_IMAGES = ['/JIJ01996.jpg', '/JIJ01918.jpg'];
+const HERO_IMAGES = ['/JIJ01786.jpg', '/JIJ01918.jpg'];
 
 export default function WeddingHero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -113,7 +113,7 @@ export default function WeddingHero() {
             whiteSpace: 'nowrap',
           }}
         >
-          <span>Nena</span>
+          <span>Melbin</span>
           <span style={{ 
             color: 'rgba(255,212,120,0.7)', 
             fontSize: '0.42em', 
@@ -122,7 +122,7 @@ export default function WeddingHero() {
           }}>
             &amp;
           </span>
-          <span>Melbin</span>
+          <span>Nena</span>
         </motion.h1>
 
         {/* ornamental divider */}
@@ -156,7 +156,7 @@ export default function WeddingHero() {
               textShadow: '0 2px 10px rgba(0,0,0,0.3)',
             }}
           >
-            15 · 06 · 2025
+            31 · 05 · 2026
           </p>
           <p
             style={{
@@ -169,7 +169,7 @@ export default function WeddingHero() {
               textShadow: '0 2px 10px rgba(0,0,0,0.3)',
             }}
           >
-            Thrissur, Kerala
+            Puthencruz, Kolenchery
           </p>
         </motion.div>
       </motion.div>

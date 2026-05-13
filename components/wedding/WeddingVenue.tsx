@@ -8,15 +8,15 @@ const VENUES = [
     type: 'The Ceremony',
     time: '10:30 AM',
     name: 'St. Athanasius Jacobite Syrian Cathedral',
-    address: 'Puthenkurish, Ernakulam, Kerala',
+    address: 'Puthenkurish, Kolencherry, Kerala',
     mapUrl: 'https://maps.google.com/maps?q=St.+Athanasius+Jacobite+Syrian+Cathedral+Puthenkurish',
     embedUrl: 'https://maps.google.com/maps?q=St.+Athanasius+Jacobite+Syrian+Cathedral+Puthenkurish&t=&z=15&ie=UTF8&iwloc=&output=embed'
   },
   {
     type: 'The Reception',
-    time: '1:00 PM',
-    name: 'Njattumkalayil Hilltop Event Centre',
-    address: 'Kolencherry, Ernakulam, Kerala',
+    time: '12:30 PM',
+    name: 'Njattumkalayil Hilltop Event Center',
+    address: 'Kolencherry, Kerala',
     mapUrl: 'https://maps.google.com/maps?q=Njattumkalayil+Hilltop+Event+Centre+Kolencherry',
     embedUrl: 'https://maps.google.com/maps?q=Njattumkalayil+Hilltop+Event+Centre+Kolencherry&t=&z=15&ie=UTF8&iwloc=&output=embed'
   }

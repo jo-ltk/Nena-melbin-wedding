@@ -15,7 +15,7 @@ const STORY_MOMENTS = [
   {
     title: 'Growing Together',
     text: 'Through seasons of joy and growth, Melbin and Nena discovered in each other a kindred spirit — steadfast, gentle, and full of God\'s purpose.',
-    image: '/JIJ02438.jpg',
+    image: '/JIJ03037.jpg',
     layout: 'reverse'
   },
   {
@@ -92,7 +92,7 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="relative aspect-[4/3] md:aspect-[3/2] overflow-hidden group shadow-2xl shadow-[#b8956a]/5">
-          <ParallaxImage className="absolute inset-0 w-full h-full" offset={10}>
+          <ParallaxImage className="absolute inset-0 w-full h-full" offset={5}>
             <motion.div 
               className="w-full h-full relative"
               whileHover={{ scale: 1.05 }}
@@ -103,7 +103,7 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
                 alt={moment.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover grayscale-[0.1] contrast-[1.05]"
+                className="object-cover object-[center_20%] grayscale-[0.1] contrast-[1.05]"
               />
             </motion.div>
           </ParallaxImage>
