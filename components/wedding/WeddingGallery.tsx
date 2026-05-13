@@ -88,7 +88,8 @@ export default function WeddingGallery() {
                       src={img.url}
                       alt="Gallery moment"
                       fill
-                      sizes="(max-width: 768px) 50vw, 33vw"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      quality={75}
                       className={`object-cover ${img.position || 'object-top'} grayscale-[0.02] contrast-[1.02]`}
                     />
                   </motion.div>
@@ -149,6 +150,8 @@ export default function WeddingGallery() {
                   fill
                   className="object-contain"
                   priority
+                  quality={85}
+                  sizes="(max-width: 1024px) 100vw, 80vw"
                 />
               </div>
               

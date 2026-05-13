@@ -24,7 +24,6 @@ export default function Home() {
       <WeddingCountdown />
       <WeddingInvitation />
       <WeddingCeremony />
-      <WeddingReception />
       <WeddingStory />
       <WeddingFamilies />
       <WeddingGallery />

@@ -13,12 +13,51 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#faf9f6',
+          background: 'linear-gradient(145deg, #1a1a1a, #2d2520)',
+          borderRadius: '36px',
         }}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#b8956a" width="120" height="120">
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '2px',
+          }}
+        >
+          <span
+            style={{
+              fontSize: '52px',
+              color: '#b8956a',
+              fontFamily: 'Georgia, serif',
+              fontStyle: 'italic',
+              lineHeight: 1,
+            }}
+          >
+            M
+          </span>
+          <span
+            style={{
+              fontSize: '20px',
+              color: 'rgba(184, 149, 106, 0.5)',
+              fontFamily: 'Georgia, serif',
+              fontStyle: 'italic',
+              marginTop: '8px',
+            }}
+          >
+            &
+          </span>
+          <span
+            style={{
+              fontSize: '52px',
+              color: '#b8956a',
+              fontFamily: 'Georgia, serif',
+              fontStyle: 'italic',
+              lineHeight: 1,
+            }}
+          >
+            N
+          </span>
+        </div>
       </div>
     ),
     { ...size }

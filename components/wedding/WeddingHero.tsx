@@ -52,7 +52,7 @@ export default function WeddingHero() {
               alt="Nena and Melbin"
               fill
               priority={currentImageIndex === 0}
-              quality={85}
+              quality={80}
               sizes="100vw"
               className="object-cover object-top"
             />

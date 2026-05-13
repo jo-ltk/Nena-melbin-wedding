@@ -8,7 +8,7 @@ export default function WeddingFooter() {
     <footer className="relative w-full bg-[#1a0808] py-12 md:py-20 overflow-hidden">
       {/* Background Ornament (Ultra Subtle) */}
       <div className="absolute inset-0 opacity-[0.03] flex items-center justify-center pointer-events-none">
-        <h2 className="font-serif italic text-[50vw] md:text-[20vw] text-white select-none leading-none">NM</h2>
+        <h2 className="font-serif italic text-[50vw] md:text-[20vw] text-white select-none leading-none">MN</h2>
       </div>
 
       <div className="max-w-6xl mx-auto px-8 relative z-10 flex flex-col items-center text-center">
@@ -44,7 +44,7 @@ export default function WeddingFooter() {
             className="font-serif font-light text-white leading-tight mb-2"
             style={{ fontSize: 'clamp(2.5rem, 12vw, 6rem)' }}
           >
-            Nena & Melbin
+            Melbin & Nena
           </HeadingReveal>
           <span className="font-display text-[12px] md:text-[14px] tracking-[0.6em] text-[#b8956a] uppercase font-medium">
             31 MAY 2026
@@ -84,7 +84,7 @@ export default function WeddingFooter() {
           transition={{ duration: 1, delay: 0.4 }}
         >
           <p className="font-display text-[7px] tracking-[0.4em] text-white uppercase">
-            Designed for Nena & Melbin
+            Designed for Melbin & Nena
           </p>
         </motion.div>
 

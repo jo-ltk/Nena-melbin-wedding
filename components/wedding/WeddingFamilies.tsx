@@ -106,7 +106,8 @@ function FamilyCard({ label, name, parents, address, image, delay }: { label: st
                 src={image} 
                 alt={name} 
                 fill
-                sizes="(max-width: 768px) 14rem, 18rem"
+                sizes="(max-width: 768px) 224px, 288px"
+                quality={80}
                 className="object-cover grayscale-[0.05] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" 
               />
             </ParallaxImage>

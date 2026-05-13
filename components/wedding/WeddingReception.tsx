@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { HeadingReveal } from './HeadingReveal';
 
 export default function WeddingReception() {
@@ -124,12 +125,13 @@ export default function WeddingReception() {
           viewport={{ once: true }}
         >
           <div className="relative h-96 md:h-full overflow-hidden group">
-            <motion.img
+            <Image
               src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=80&fit=crop"
               alt="Reception Venue"
-              className="w-full h-full object-cover"
-              whileHover={{ scale: 1.04 }}
-              transition={{ duration: 2 }}
+              fill
+              sizes="(max-width: 768px) 100vw, 40vw"
+              quality={80}
+              className="object-cover transition-transform duration-[2000ms] group-hover:scale-105"
             />
           </div>
         </motion.div>

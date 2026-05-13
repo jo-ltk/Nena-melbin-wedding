@@ -8,20 +8,20 @@ import { HeadingReveal } from './HeadingReveal';
 
 const STORY_MOMENTS = [
   {
-    title: 'The Beginning',
-    text: 'Brought together by God\'s grace, two paths converged in faith and hope. What began as friendship bloomed into a love that feels written in eternity.',
+    title: 'A Meaningful Beginning',
+    text: 'Guided by faith and family values, Melbin and Nena first connected through a modern marriage platform. What began as simple conversations slowly grew into a meaningful bond filled with understanding, respect, and grace.',
     image: '/JIJ02472.jpg',
     layout: 'standard'
   },
   {
-    title: 'Growing Together',
-    text: 'Through seasons of joy and growth, Melbin and Nena discovered in each other a kindred spirit — steadfast, gentle, and full of God\'s purpose.',
+    title: 'Families United',
+    text: 'As their connection deepened, both families came together in the warmth of traditional Kerala hospitality. Through heartfelt visits, shared moments, and prayers, two families found joy in becoming one.',
     image: '/JIJ03037.jpg',
     layout: 'reverse'
   },
   {
-    title: 'The Covenant',
-    text: 'Today they stand before God, family, and loved ones, to pledge a love that is patient, kind, and unending — as written in His word.',
+    title: 'A Blessed Celebration',
+    text: 'Surrounded by loved ones and God’s blessings, they now begin a beautiful new chapter together. With faith at the center and family by their side, this wedding marks the start of a lifelong journey.',
     image: '/JIJ02260.jpg',
     layout: 'standard'
   }
@@ -107,6 +107,7 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
                 alt={moment.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
+                quality={80}
                 className="object-cover object-[center_20%] grayscale-[0.1] contrast-[1.05]"
               />
             </motion.div>
