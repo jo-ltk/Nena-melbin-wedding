@@ -33,21 +33,11 @@ export default async function Image() {
             width: '55%',
             height: '100%',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden',
+            backgroundImage: `url(${base64Image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center top',
           }}
-        >
-          <img
-            src={base64Image}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center top',
-            }}
-          />
-        </div>
+        />
 
         {/* Gradient overlay for text readability */}
         <div
