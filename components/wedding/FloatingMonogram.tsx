@@ -24,10 +24,10 @@ export default function FloatingMonogram() {
       <div ref={constraintsRef} className="fixed inset-4 z-[100] pointer-events-none" />
       
       <motion.div
-        className="fixed top-8 left-5 z-[100] md:left-12 cursor-grab active:cursor-grabbing pointer-events-auto"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+        className="fixed top-[calc(60%-24px)] left-[calc(50%-24px)] md:top-[calc(50%-28px)] md:left-[calc(50%-28px)] z-[100] cursor-grab active:cursor-grabbing pointer-events-auto"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
         
         // Drag Logic
         drag
