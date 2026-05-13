@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import WeddingLoader from '@/components/wedding/WeddingLoader';
+import React from 'react';
 import WeddingNav from '@/components/wedding/WeddingNav';
 import WeddingHero from '@/components/wedding/WeddingHero';
 import WeddingCountdown from '@/components/wedding/WeddingCountdown';
@@ -18,16 +17,10 @@ import WeddingFooter from '@/components/wedding/WeddingFooter';
 import FloatingMonogram from '@/components/wedding/FloatingMonogram';
 
 export default function Home() {
-  const [showLoader, setShowLoader] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowLoader(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <>
-      {showLoader && <WeddingLoader />}
+
       <WeddingNav />
       <FloatingMonogram />
       <WeddingHero />
