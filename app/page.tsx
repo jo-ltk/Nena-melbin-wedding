@@ -26,7 +26,7 @@ export default function Home() {
       <WeddingCeremony />
       <WeddingStory />
       <WeddingFamilies />
-      <WeddingGallery />
+      {/* <WeddingGallery /> */}
       <WeddingTravel />
       <WeddingVenue />
       <WeddingFooter />
