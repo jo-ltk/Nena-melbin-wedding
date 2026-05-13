@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import ParallaxImage from './ParallaxImage';
+import { HeadingReveal } from './HeadingReveal';
 
 const HERO_IMAGES = ['/JIJ01786.jpg', '/JIJ01918.jpg'];
 
@@ -93,37 +94,18 @@ export default function WeddingHero() {
         </motion.p>
 
         {/* names - HORIZONTAL */}
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+        <HeadingReveal
+          as="h1"
+          delay={0.38}
+          className="font-serif italic font-light text-[rgba(255,246,230,1)] leading-none text-center"
           style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontStyle: 'italic',
-            fontWeight: 400,
             fontSize: 'clamp(38px, 12vw, 88px)',
-            lineHeight: 1.0,
-            color: 'rgba(255,246,230,1)',
             letterSpacing: '-0.02em',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.35em',
             textShadow: '0 4px 30px rgba(0,0,0,0.35), 0 0 50px rgba(255,212,120,0.2)',
-            whiteSpace: 'nowrap',
           }}
         >
-          <span>Melbin</span>
-          <span style={{ 
-            color: 'rgba(255,212,120,0.7)', 
-            fontSize: '0.42em', 
-            fontStyle: 'normal', 
-            letterSpacing: '0.05em',
-          }}>
-            &amp;
-          </span>
-          <span>Nena</span>
-        </motion.h1>
+          Melbin & Nena
+        </HeadingReveal>
 
         {/* ornamental divider */}
         <motion.div

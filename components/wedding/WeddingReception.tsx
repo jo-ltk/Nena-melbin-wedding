@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { HeadingReveal } from './HeadingReveal';
 
 export default function WeddingReception() {
   return (
@@ -31,14 +32,15 @@ export default function WeddingReception() {
           </h2>
 
           {/* Headline */}
-          <h3
+          <HeadingReveal
+            as="h3"
             className="font-serif italic text-cream font-light mb-6 leading-tight"
             style={{
               fontSize: 'clamp(2.5rem, 4vw, 4rem)',
             }}
           >
             Reception
-          </h3>
+          </HeadingReveal>
 
           {/* Gold Line */}
           <div

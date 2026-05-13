@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { Clock, MapPin, Gem, Flame, Church, PartyPopper } from 'lucide-react';
 import { useRef } from 'react';
+import { HeadingReveal } from './HeadingReveal';
 
 const EVENTS = [
   {
@@ -119,12 +120,13 @@ function TimelineEvent({ event, index, isLast }: { event: typeof EVENTS[0]; inde
           </div>
 
           {/* Title */}
-          <h3
+          <HeadingReveal
+            as="h3"
             className="font-serif italic font-light text-[#1a1816] leading-tight mb-3"
             style={{ fontSize: 'clamp(1.65rem, 5.5vw, 2.4rem)' }}
           >
             {event.title}
-          </h3>
+          </HeadingReveal>
 
           {/* Description */}
           <p className="font-sans text-[14px] md:text-[16px] leading-relaxed text-[#1a1816]/80 mb-5 max-w-[600px]">
@@ -175,12 +177,13 @@ export default function WeddingCeremony() {
           <span className="font-sans text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-5">
             The Sacrament &amp; The Celebration
           </span>
-          <h2
+          <HeadingReveal
+            as="h2"
             className="font-serif italic font-light text-[#1a1816] leading-tight mb-8"
             style={{ fontSize: 'clamp(2.5rem, 7vw, 5rem)' }}
           >
             Our Journey
-          </h2>
+          </HeadingReveal>
           <div className="flex items-center gap-4 w-24">
             <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
             <div className="w-1.5 h-1.5 border-[0.5px] border-[#b8956a]/40 rotate-45" />

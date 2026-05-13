@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { MapPin, Clock, Compass } from 'lucide-react';
+import { HeadingReveal } from './HeadingReveal';
 
 const VENUES = [
   {
@@ -43,10 +44,13 @@ export default function WeddingVenue() {
             <span className="font-display text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-4">
               Find Your Way
             </span>
-            <h2 className="font-serif italic font-light text-[#1a1816] leading-tight mb-8"
-                style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
+            <HeadingReveal 
+              as="h2"
+              className="font-serif italic font-light text-[#1a1816] leading-tight mb-8"
+              style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}
+            >
               Venues
-            </h2>
+            </HeadingReveal>
             <div className="flex items-center gap-4 w-24">
               <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
               <div className="w-1.5 h-1.5 border-[0.5px] border-[#b8956a]/40 rotate-45" />
@@ -111,9 +115,12 @@ function VenueCard({ venue, delay }: { venue: any, delay: number }) {
           <span className="font-display text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-medium">{venue.time}</span>
         </div>
 
-        <h3 className="font-serif text-[24px] md:text-[34px] text-[#1a1816] leading-tight mb-3 md:mb-4 group-hover:text-[#b8956a] transition-colors duration-500">
+        <HeadingReveal 
+          as="h3" 
+          className="font-serif text-[24px] md:text-[34px] text-[#1a1816] leading-tight mb-3 md:mb-4 group-hover:text-[#b8956a] transition-colors duration-500"
+        >
           {venue.name}
-        </h3>
+        </HeadingReveal>
         
         <div className="flex items-start gap-3 mb-8 md:mb-10 text-[#2a2622]/60">
           <MapPin size={12} strokeWidth={1.5} className="mt-1 flex-shrink-0" />

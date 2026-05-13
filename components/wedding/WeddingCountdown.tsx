@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HeadingReveal } from './HeadingReveal';
 
 interface CountdownState {
   days: number;
@@ -147,7 +148,8 @@ export default function WeddingCountdown() {
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col items-center justify-center text-center"
             >
-              <h2 
+              <HeadingReveal 
+                as="h2"
                 style={{ 
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: 'clamp(2.5rem, 8vw, 5rem)',
@@ -158,7 +160,7 @@ export default function WeddingCountdown() {
                 }}
               >
                 It's Wedding Day!
-              </h2>
+              </HeadingReveal>
               <p
                 style={{
                   fontFamily: "'Jost', sans-serif",

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
 import ParallaxImage from './ParallaxImage';
+import { HeadingReveal } from './HeadingReveal';
 
 const GALLERY_IMAGES = [
   { url: '/gallery/JIJ01663.jpg', span: 'md:col-span-1 md:row-span-1' },
@@ -49,10 +50,13 @@ export default function WeddingGallery() {
         viewport={{ once: true }}
         transition={{ duration: 1.2 }}
       >
-        <h2 className="font-serif italic font-light text-[#1a1816] leading-tight mb-6"
-            style={{ fontSize: 'clamp(3rem, 7vw, 5rem)' }}>
+        <HeadingReveal 
+          as="h2"
+          className="font-serif italic font-light text-[#1a1816] leading-tight mb-6"
+          style={{ fontSize: 'clamp(3rem, 7vw, 5rem)' }}
+        >
           Gallery
-        </h2>
+        </HeadingReveal>
         <div className="flex items-center gap-4 w-24">
           <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
           <div className="w-1.5 h-1.5 border-[0.5px] border-[#b8956a]/40 rotate-45" />

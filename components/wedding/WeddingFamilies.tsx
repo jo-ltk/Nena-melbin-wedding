@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import ParallaxImage from './ParallaxImage';
+import { HeadingReveal } from './HeadingReveal';
 
 export default function WeddingFamilies() {
   return (
@@ -24,10 +25,13 @@ export default function WeddingFamilies() {
           <span className="font-display text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-4">
             Blessed Families
           </span>
-          <h2 className="font-serif italic font-light text-[#1a1816] leading-tight mb-8"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
+          <HeadingReveal 
+            as="h2"
+            className="font-serif italic font-light text-[#1a1816] leading-tight mb-8"
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}
+          >
             With the Blessings of Our Parents
-          </h2>
+          </HeadingReveal>
           <div className="flex items-center gap-4 w-24">
             <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
             <div className="w-1.5 h-1.5 border-[0.5px] border-[#b8956a]/40 rotate-45" />
@@ -116,9 +120,12 @@ function FamilyCard({ label, name, parents, address, image, delay }: { label: st
 
       {/* Content */}
       <div className="space-y-4">
-        <h3 className="font-serif text-[32px] md:text-[44px] text-[#1a1816] leading-tight font-light">
+        <HeadingReveal 
+          as="h3" 
+          className="font-serif text-[32px] md:text-[44px] text-[#1a1816] leading-tight font-light"
+        >
           {name}
-        </h3>
+        </HeadingReveal>
         <p className="font-serif text-[18px] md:text-[22px] text-[#2a2622]/80 font-light italic">
           {parents}
         </p>

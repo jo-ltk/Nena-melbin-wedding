@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { HeadingReveal } from './HeadingReveal';
 
 export default function WeddingFooter() {
   return (
@@ -38,10 +39,13 @@ export default function WeddingFooter() {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-          <h2 className="font-serif font-light text-white leading-tight mb-2"
-              style={{ fontSize: 'clamp(2.5rem, 12vw, 6rem)' }}>
-            Nena & <br className="md:hidden" /> Melbin
-          </h2>
+          <HeadingReveal 
+            as="h2"
+            className="font-serif font-light text-white leading-tight mb-2"
+            style={{ fontSize: 'clamp(2.5rem, 12vw, 6rem)' }}
+          >
+            Nena & Melbin
+          </HeadingReveal>
           <span className="font-display text-[12px] md:text-[14px] tracking-[0.6em] text-[#b8956a] uppercase font-medium">
             31 MAY 2026
           </span>

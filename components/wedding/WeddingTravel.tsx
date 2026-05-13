@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Plane, Train, Car } from 'lucide-react';
+import { HeadingReveal } from './HeadingReveal';
 
 const TRAVEL_MODES = [
   {
@@ -52,10 +53,13 @@ export default function WeddingTravel() {
           <span className="font-sans text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-5">
             Guest Information
           </span>
-          <h2 className="font-serif italic font-light text-[#1a1816] leading-tight mb-10"
-              style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}>
+          <HeadingReveal 
+            as="h2"
+            className="font-serif italic font-light text-[#1a1816] leading-tight mb-10"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
+          >
             How to Reach
-          </h2>
+          </HeadingReveal>
           <div className="flex items-center gap-4 w-24">
             <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
             <div className="w-1.5 h-1.5 border-[0.5px] border-[#b8956a]/40 rotate-45" />
@@ -74,46 +78,55 @@ export default function WeddingTravel() {
               viewport={{ once: true }}
               transition={{ duration: 1, delay: i * 0.2 }}
             >
-              <div className="h-full bg-white border-[0.5px] border-[#b8956a]/15 p-8 md:p-10 shadow-[0_4px_30px_rgba(184,149,106,0.06)] hover:shadow-[0_12px_50px_rgba(184,149,106,0.15)] transition-all duration-700 flex flex-col">
+              <div className="h-full bg-white border-[0.5px] border-[#b8956a]/15 p-10 md:p-12 shadow-[0_4px_30px_rgba(184,149,106,0.06)] hover:shadow-[0_20px_60px_rgba(184,149,106,0.12)] transition-all duration-700 flex flex-col relative overflow-hidden">
                 
-                {/* Top Row: Index + Accent */}
-                <div className="flex justify-between items-start mb-10">
-                  <div className="font-serif italic text-[54px] leading-none text-[#b8956a]/10 select-none group-hover:text-[#b8956a]/20 transition-colors duration-700">
-                    0{i + 1}
+                {/* Large Background Index Number - Fills the space on the right */}
+                <div className="absolute top-[-10px] right-[-10px] font-serif italic text-[120px] md:text-[140px] leading-none text-[#b8956a]/5 select-none group-hover:text-[#b8956a]/10 group-hover:scale-110 transition-all duration-1000 pointer-events-none">
+                  0{i + 1}
+                </div>
+
+                {/* Top Row: Icon + Accent */}
+                <div className="flex justify-between items-center mb-12">
+                  <div 
+                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-700"
+                    style={{ backgroundColor: `${mode.color}10`, color: mode.color }}
+                  >
+                    {mode.icon}
                   </div>
-                  <span className="font-sans text-[10px] tracking-[0.2em] text-[#b8956a]/40 uppercase mt-2">
+                  <span className="font-sans text-[10px] tracking-[0.3em] text-[#b8956a]/60 uppercase font-medium">
                     {mode.accent}
                   </span>
                 </div>
 
-                {/* Icon Container - Colorful Theme */}
-                <div 
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-700"
-                  style={{ backgroundColor: `${mode.color}10`, color: mode.color }}
-                >
-                  {mode.icon}
+                {/* Content Area */}
+                <div className="relative z-10 flex-1">
+                  <HeadingReveal 
+                    as="h3" 
+                    className="font-serif text-[28px] md:text-[34px] text-[#1a1816] mb-6 tracking-tight font-light italic"
+                  >
+                    {mode.title}
+                  </HeadingReveal>
+                  
+                  <p className="font-sans text-[15px] md:text-[16px] leading-relaxed text-[#1a1816]/75 font-light mb-10">
+                    {mode.description}
+                  </p>
                 </div>
 
-                <h3 className="font-serif text-[26px] md:text-[32px] text-[#1a1816] mb-5 tracking-tight font-light italic">
-                  {mode.title}
-                </h3>
-                
-                <p className="font-sans text-[14px] md:text-[15px] leading-relaxed text-[#1a1816]/70 font-light mb-8 flex-1">
-                  {mode.description}
-                </p>
-
-                {/* Bottom Decoration */}
-                <div className="pt-6 border-t-[0.5px] border-[#b8956a]/10 flex items-center justify-between">
-                  <div className="w-10 h-[0.5px] bg-[#b8956a]/30 group-hover:w-16 transition-all duration-700" />
+                {/* Bottom Row: Accent Line + Dot */}
+                <div className="pt-8 border-t-[0.5px] border-[#b8956a]/10 flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-[1px] bg-[#b8956a]/30 group-hover:w-20 transition-all duration-700" />
+                    <span className="font-sans text-[9px] tracking-[0.2em] text-[#b8956a]/40 uppercase">Details</span>
+                  </div>
                   <div 
-                    className="w-2 h-2 rounded-full opacity-40 group-hover:opacity-100 transition-opacity duration-700"
+                    className="w-2.5 h-2.5 rounded-full opacity-30 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700"
                     style={{ backgroundColor: mode.color }}
                   />
                 </div>
 
-                {/* Corner Accents */}
-                <div className="absolute top-4 left-4 w-3 h-3 border-t-[0.5px] border-l-[0.5px] border-[#b8956a]/0 group-hover:border-[#b8956a]/20 transition-all duration-500" />
-                <div className="absolute bottom-4 right-4 w-3 h-3 border-b-[0.5px] border-r-[0.5px] border-[#b8956a]/0 group-hover:border-[#b8956a]/20 transition-all duration-500" />
+                {/* Interactive Corner Accents */}
+                <div className="absolute top-0 left-0 w-0 h-0 border-t-[1px] border-l-[1px] border-[#b8956a]/20 group-hover:w-8 group-hover:h-8 transition-all duration-700" />
+                <div className="absolute bottom-0 right-0 w-0 h-0 border-b-[1px] border-r-[1px] border-[#b8956a]/20 group-hover:w-8 group-hover:h-8 transition-all duration-700" />
               </div>
             </motion.div>
           ))}

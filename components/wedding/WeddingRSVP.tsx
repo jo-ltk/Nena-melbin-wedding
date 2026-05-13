@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { HeadingReveal } from './HeadingReveal';
 
 interface FormData {
   fullName: string;
@@ -79,12 +80,13 @@ export default function WeddingRSVP() {
           >
             Will You Join Us?
           </h2>
-          <h1
+          <HeadingReveal
+            as="h1"
             className="font-serif italic text-cream font-light mb-6"
             style={{ fontSize: 'clamp(3rem, 6vw, 5rem)' }}
           >
             RSVP
-          </h1>
+          </HeadingReveal>
           <p className="font-sans text-cream opacity-50 text-sm mb-6" style={{ fontWeight: 300 }}>
             Please respond by 20 May 2026
           </p>
