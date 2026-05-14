@@ -11,7 +11,7 @@ const EVENTS = [
     title: 'The Engagement',
     description: 'Melbin and Nena in the presence of their families, begins the sacred chapter together.',
     time: '11:30 AM',
-    venue: 'Eden Convention Center',
+    venue: 'Eden Garden Convention Centre',
     location: 'Mallappally, Kerala',
     type: 'ENGAGEMENT',
     icon: <Gem size={22} strokeWidth={1.5} />,

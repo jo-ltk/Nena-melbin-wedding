@@ -2,24 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
-import { Heart, Church, MapPin, Mail, Home, LucideProps } from 'lucide-react';
+import { Heart, Church, MapPin, Home, LucideProps } from 'lucide-react';
 import FloatingMonogram from './FloatingMonogram';
-import WeddingRSVP from './WeddingRSVP';
 import { X } from 'lucide-react';
 
 const NAV_LINKS = [
   { icon: <Home size={18} strokeWidth={1.5} />, label: 'Home', href: '#hero' },
   { icon: <Heart size={18} strokeWidth={1.5} />, label: 'Story', href: '#story' },
   { icon: <Church size={18} strokeWidth={1.5} />, label: 'Ceremony', href: '#ceremony' },
-  { icon: <MapPin size={18} strokeWidth={1.5} />, label: 'Travel', href: '#travel' },
-  { icon: <Mail size={18} strokeWidth={1.5} />, label: 'RSVP', href: '#rsvp' },
+  { icon: <MapPin size={18} strokeWidth={1.5} />, label: 'Venues', href: '#venues' },
 ];
 
 export default function WeddingNav() {
   const [isHidden, setIsHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const [showRSVP, setShowRSVP] = useState(false);
 
   const { scrollY } = useScroll();
 
@@ -58,17 +55,6 @@ export default function WeddingNav() {
     return () => window.removeEventListener('scroll', updateActiveSection);
   }, []);
 
-  // Lock body scroll when RSVP modal is open
-  useEffect(() => {
-    if (showRSVP) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [showRSVP]);
 
   return (
     <>
@@ -83,7 +69,7 @@ export default function WeddingNav() {
             borderColor: isHidden ? 'rgba(184, 149, 106, 0)' : (scrolled ? 'rgba(184, 149, 106, 0.25)' : 'rgba(184, 149, 106, 0.15)'),
           }}
           transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-          className="flex items-center rounded-full border-[0.5px] shadow-[0_8px_32px_rgba(0,0,0,0.08)] pointer-events-auto overflow-hidden"
+          className="flex items-center rounded-full border-[0.5px] shadow-[0_8px_32px_rgba(0,0,0,0.08)] pointer-events-auto"
         >
           <motion.div layout className="pl-1.5 md:pl-2 pr-1 md:pr-1.5 py-1.5">
             <FloatingMonogram isCentered={isHidden} className={!isHidden ? "scale-[0.85] md:scale-90" : ""} />
@@ -106,12 +92,7 @@ export default function WeddingNav() {
                         <a
                           key={i}
                           href={link.href}
-                          onClick={(e) => {
-                            if (link.href === '#rsvp') {
-                              e.preventDefault();
-                              setShowRSVP(true);
-                            }
-                          }}
+                          onClick={(e) => {}}
                           className="relative p-2 md:p-2.5 text-[#1a1816]/60 hover:text-[#b8956a] transition-all duration-300 group"
                           aria-label={link.label}
                         >
@@ -144,48 +125,6 @@ export default function WeddingNav() {
         </motion.div>
       </motion.nav>
 
-      {/* RSVP Modal */}
-      <AnimatePresence>
-        {showRSVP && (
-          <motion.div 
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {/* Backdrop */}
-            <motion.div 
-              className="absolute inset-0 bg-[#1a0808]/90 backdrop-blur-md"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowRSVP(false)}
-            />
-
-            {/* Modal Content */}
-            <motion.div 
-              className="relative w-full max-w-2xl max-h-[90vh] bg-[#4a1428] rounded-sm shadow-2xl overflow-y-auto no-scrollbar border-[0.5px] border-[#b8956a]/30"
-              initial={{ scale: 0.9, opacity: 0, y: 30 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 30 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close button inside the modal to ensure visibility */}
-              <button 
-                onClick={() => setShowRSVP(false)}
-                className="absolute top-6 right-6 text-gold hover:text-gold-light transition-all z-50 p-2"
-              >
-                <X size={24} strokeWidth={1} />
-              </button>
-
-              <div className="py-12 px-6 md:px-12">
-                <WeddingRSVP isModal={true} />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Global CSS for scroll behavior */}
       <style>{`

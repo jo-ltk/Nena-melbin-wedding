@@ -107,7 +107,7 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
                 alt={moment.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                quality={80}
+                quality={95}
                 className="object-cover object-[center_20%] grayscale-[0.1] contrast-[1.05]"
               />
             </motion.div>

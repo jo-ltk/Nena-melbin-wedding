@@ -30,7 +30,7 @@ const TRAVEL_MODES = [
 
 export default function WeddingTravel() {
   return (
-    <section id="travel" className="relative w-full py-16 md:py-24 bg-[#faf9f6] overflow-hidden">
+    <section id="travel" className="relative w-full py-10 md:py-16 bg-[#faf9f6] overflow-hidden">
       {/* Background Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
@@ -134,7 +134,7 @@ export default function WeddingTravel() {
 
         {/* Note at the bottom */}
         <motion.p 
-          className="text-center mt-20 font-sans text-[11px] tracking-[0.2em] text-[#b8956a]/50 uppercase px-10 leading-relaxed"
+          className="text-center mt-8 font-sans text-[11px] tracking-[0.2em] text-[#b8956a]/50 uppercase px-10 leading-relaxed"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

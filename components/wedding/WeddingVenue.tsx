@@ -1,22 +1,30 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, Clock, Compass } from 'lucide-react';
+import { MapPin, Clock, Compass, ChevronRight } from 'lucide-react';
 import { HeadingReveal } from './HeadingReveal';
 
 const VENUES = [
   {
-    type: 'The Ceremony',
+    type: 'Engagement',
+    time: '11:30 AM',
+    name: 'Eden Garden Convention Centre',
+    address: 'Mallappally, Pathanamthitta',
+    mapUrl: 'https://maps.google.com/maps?q=Eden+Garden+Convention+Centre+Mallappally',
+    embedUrl: 'https://maps.google.com/maps?q=Eden+Garden+Convention+Centre+Mallappally&t=&z=15&ie=UTF8&iwloc=&output=embed'
+  },
+  {
+    type: 'Ceremony',
     time: '10:30 AM',
     name: 'St. Athanasius Jacobite Syrian Cathedral',
-    address: 'Puthenkurish, Kolencherry, Kerala',
+    address: 'Puthenkurish, Kolencherry',
     mapUrl: 'https://maps.google.com/maps?q=St.+Athanasius+Jacobite+Syrian+Cathedral+Puthenkurish',
     embedUrl: 'https://maps.google.com/maps?q=St.+Athanasius+Jacobite+Syrian+Cathedral+Puthenkurish&t=&z=15&ie=UTF8&iwloc=&output=embed'
   },
   {
-    type: 'The Reception',
+    type: 'Reception',
     time: '12:30 PM',
-    name: 'Njattumkalayil Hilltop Event Center',
+    name: 'Njattumkalayil Hilltop Center',
     address: 'Kolencherry, Kerala',
     mapUrl: 'https://maps.google.com/maps?q=Njattumkalayil+Hilltop+Event+Centre+Kolencherry',
     embedUrl: 'https://maps.google.com/maps?q=Njattumkalayil+Hilltop+Event+Centre+Kolencherry&t=&z=15&ie=UTF8&iwloc=&output=embed'
@@ -25,132 +33,127 @@ const VENUES = [
 
 export default function WeddingVenue() {
   return (
-    <>
-      <section id="venues" className="relative w-full pt-8 pb-12 md:pt-16 md:pb-20 bg-[#faf9f6] overflow-hidden">
-        {/* Background Texture */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
-             style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
-
-        <div className="max-w-6xl mx-auto px-7 relative z-10">
-          
-          {/* Header Section */}
-          <motion.div 
-            className="flex flex-col items-center text-center mb-10 md:mb-28"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+    <section id="venues" className="relative w-full py-10 md:py-16 bg-[#faf9f6] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        
+        {/* Compact Header */}
+        <div className="flex flex-col items-center text-center mb-6">
+          <motion.span 
+            className="font-[Cinzel] text-[10px] tracking-[0.4em] text-[#b8956a] uppercase mb-3"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2 }}
           >
-            <span className="font-display text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-4">
-              Find Your Way
-            </span>
-            <HeadingReveal 
-              as="h2"
-              className="font-serif italic font-light text-[#1a1816] leading-tight mb-8"
-              style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}
+            The Locations
+          </motion.span>
+          <HeadingReveal 
+            as="h2"
+            className="font-serif italic font-light text-[#1a1816] mb-3"
+            style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
+          >
+            Venues
+          </HeadingReveal>
+          <div className="w-10 h-[1px] bg-[#b8956a]/30" />
+        </div>
+
+        {/* Mobile-Focused Swipeable Carousel / Desktop Grid */}
+        <div className="relative">
+          {/* Swipe Hint for Mobile */}
+          <motion.div 
+            className="flex lg:hidden items-center justify-center gap-2 mb-4 text-[#b8956a]/60"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <span className="font-[Cinzel] text-[8px] tracking-[0.2em] uppercase">Swipe to explore</span>
+            <motion.div
+              animate={{ x: [0, 4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             >
-              Venues
-            </HeadingReveal>
-            <div className="flex items-center gap-4 w-24">
-              <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
-              <div className="w-1.5 h-1.5 border-[0.5px] border-[#b8956a]/40 rotate-45" />
-              <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
-            </div>
+              <ChevronRight size={10} strokeWidth={1} />
+            </motion.div>
           </motion.div>
 
-          {/* Venue Cards - Swipeable on mobile, Grid on desktop */}
-          <div className="relative">
-            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 md:gap-16">
-              {VENUES.map((venue, i) => (
-                <VenueCard key={i} venue={venue} delay={i * 0.2} />
-              ))}
-            </div>
+          <div className="flex overflow-x-auto pb-8 snap-x snap-mandatory no-scrollbar lg:grid lg:grid-cols-3 lg:gap-8 gap-4 px-2">
+            {VENUES.map((venue, i) => (
+              <VenueCard key={i} venue={venue} delay={i * 0.1} />
+            ))}
+          </div>
+          
+          {/* Swipe Hint for Mobile */}
+          <div className="flex lg:hidden justify-center gap-1.5 mt-2">
+            {VENUES.map((_, i) => (
+              <div key={i} className="w-1 h-1 rounded-full bg-[#b8956a]/30" />
+            ))}
           </div>
         </div>
-      </section>
+      </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}} />
-    </>
+    </section>
   );
 }
 
 function VenueCard({ venue, delay }: { venue: any, delay: number }) {
   return (
     <motion.div 
-      className="group relative flex flex-col w-full bg-white/60 backdrop-blur-md border-[0.5px] border-[#b8956a]/15 shadow-xl shadow-[#b8956a]/5 overflow-hidden"
-      initial={{ opacity: 0, y: 30 }}
+      className="flex-shrink-0 w-[85vw] sm:w-[350px] lg:w-full snap-center group"
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 1.2, delay }}
+      transition={{ duration: 0.8, delay }}
     >
-      {/* Interactive Map Header */}
-      <div className="relative aspect-[4/3] md:aspect-[16/9] overflow-hidden bg-[#eee] border-b-[0.5px] border-[#b8956a]/10">
-        <iframe 
-          title={venue.name}
-          src={venue.embedUrl} 
-          width="100%" 
-          height="100%" 
-          style={{ border: 0 }} 
-          allowFullScreen={false} 
-          loading="lazy" 
-          referrerPolicy="no-referrer-when-downgrade"
-          className="grayscale-[0.4] contrast-[1.1] opacity-90 hover:opacity-100 hover:grayscale-0 transition-all duration-700"
-        />
+      <div className="bg-white border-[0.5px] border-[#b8956a]/15 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
         
-        {/* Type Overlay */}
-        <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20 pointer-events-none">
-          <span className="px-3 py-1 md:px-4 md:py-1.5 bg-white/95 backdrop-blur-md text-[#b8956a] font-display text-[8px] md:text-[9px] tracking-[0.3em] uppercase rounded-full shadow-sm border-[0.5px] border-[#b8956a]/10">
+        {/* Map Header - More Compact */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-[#eee]">
+          <iframe 
+            title={venue.name}
+            src={venue.embedUrl} 
+            width="100%" 
+            height="100%" 
+            style={{ border: 0 }} 
+            allowFullScreen={false} 
+            loading="lazy" 
+            className="grayscale-[0.5] contrast-[1.1] opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100"
+          />
+          <div className="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-sm text-[#b8956a] font-[Cinzel] text-[8px] tracking-[0.2em] uppercase border-[0.5px] border-[#b8956a]/10">
             {venue.type}
-          </span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-8 md:p-12 flex flex-col flex-1">
-        <div className="flex items-center gap-3 mb-4 md:mb-6 text-[#b8956a]">
-          <Clock size={12} strokeWidth={1.5} />
-          <span className="font-display text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-medium">{venue.time}</span>
+          </div>
         </div>
 
-        <HeadingReveal 
-          as="h3" 
-          className="font-serif text-[24px] md:text-[34px] text-[#1a1816] leading-tight mb-3 md:mb-4 group-hover:text-[#b8956a] transition-colors duration-500"
-        >
-          {venue.name}
-        </HeadingReveal>
-        
-        <div className="flex items-start gap-3 mb-8 md:mb-10 text-[#2a2622]/60">
-          <MapPin size={12} strokeWidth={1.5} className="mt-1 flex-shrink-0" />
-          <p className="font-serif text-[15px] md:text-[17px] leading-relaxed">
-            {venue.address}
-          </p>
-        </div>
+        {/* Content - Compact & Clean */}
+        <div className="p-6 md:p-8">
+          <div className="flex items-center gap-2 mb-3 text-[#b8956a]">
+            <Clock size={12} />
+            <span className="font-[Jost] text-[10px] tracking-widest uppercase">{venue.time}</span>
+          </div>
 
-        <div className="mt-auto">
+          <h3 className="font-serif text-[22px] md:text-[26px] text-[#1a1816] leading-tight mb-2">
+            {venue.name}
+          </h3>
+          
+          <div className="flex items-start gap-2 mb-6 text-[#2a2622]/60">
+            <MapPin size={12} className="mt-1 flex-shrink-0" />
+            <p className="font-[Jost] text-[13px] font-light leading-relaxed">
+              {venue.address}
+            </p>
+          </div>
+
           <motion.a
             href={venue.mapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative inline-flex items-center justify-center w-full py-3 md:py-4 overflow-hidden border-[0.5px] border-[#b8956a]/30 group/btn transition-all duration-500"
+            className="flex items-center justify-center gap-2 w-full py-3.5 bg-[#b8956a] text-white font-[Cinzel] text-[9px] tracking-[0.25em] uppercase transition-all duration-300 hover:bg-[#a68459]"
+            whileTap={{ scale: 0.98 }}
           >
-            <span className="absolute inset-0 w-full h-full bg-[#b8956a] transform translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
-            <div className="relative flex items-center gap-3 text-[#b8956a] group-hover/btn:text-white transition-colors duration-500">
-              <Compass size={13} strokeWidth={1.5} className="group-hover/btn:rotate-45 transition-transform duration-700" />
-              <span className="font-display text-[9px] md:text-[10px] tracking-[0.4em] uppercase">
-                Directions
-              </span>
-            </div>
+            <Compass size={12} />
+            Directions
           </motion.a>
         </div>
-      </div>
-
-      {/* Decorative Accent */}
-      <div className="absolute top-0 right-0 w-16 h-16 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-0 w-[1px] h-full bg-gradient-to-b from-[#b8956a]/40 to-transparent" />
-        <div className="absolute top-0 right-0 w-full h-[1px] bg-gradient-to-l from-[#b8956a]/40 to-transparent" />
       </div>
     </motion.div>
   );
