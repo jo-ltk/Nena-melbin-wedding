@@ -165,7 +165,7 @@ export default function WeddingGallery() {
                     <ChevronLeft size={20} strokeWidth={1} />
                   </button>
                   
-                  <div className="font-display text-[10px] md:text-[12px] tracking-[0.4em] text-white/40 uppercase">
+                  <div className="font-display text-[12px] md:text-[12px] tracking-[0.4em] text-white/40 uppercase">
                     {selectedIndex + 1} <span className="mx-2 text-white/10">/</span> {GALLERY_IMAGES.length}
                   </div>
 

@@ -11,6 +11,8 @@ const TRAVEL_MODES = [
     description: 'Cochin International Airport (COK) is the closest international gateway, located approximately 30 km from the venues. Pre-paid taxis and Uber/Ola services are easily available at the terminal.',
     color: '#0ea5e9', // Sky Blue
     accent: 'COK',
+    mapLink: 'https://www.google.com/travel/flights?q=flights+to+COK',
+    cta: 'Find Flights'
   },
   {
     icon: <Train size={24} strokeWidth={1.5} />,
@@ -18,6 +20,8 @@ const TRAVEL_MODES = [
     description: 'Ernakulam Junction (South) and Tripunithura are the primary rail hubs nearby. From the station, you can take a taxi or auto-rickshaw for the 15-25 km drive to the wedding locations.',
     color: '#4f46e5', // Indigo
     accent: 'ERS',
+    mapLink: 'https://www.google.com/maps/dir/Ernakulam+Junction,+Kochi,+Kerala/St.+Athanasius+Jacobite+Syrian+Cathedral,+Puthenkuruz,+Kerala/',
+    cta: 'View Route'
   },
   {
     icon: <Car size={24} strokeWidth={1.5} />,
@@ -25,6 +29,8 @@ const TRAVEL_MODES = [
     description: 'The venues are conveniently located near NH 85 (Kochi-Madurai Highway). For local guests, KSRTC and private buses operate frequent services to Puthencruz and Kolencherry.',
     color: '#15803d', // Sage Green
     accent: 'NH85',
+    mapLink: 'https://www.google.com/maps/dir/?api=1&destination=St.+Athanasius+Jacobite+Syrian+Cathedral,+Puthenkuruz,+Kerala',
+    cta: 'Get Directions'
   }
 ];
 
@@ -50,7 +56,7 @@ export default function WeddingTravel() {
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
         >
-          <span className="font-sans text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-5">
+          <span className="font-sans text-[12px] tracking-[0.5em] text-[#b8956a] uppercase mb-5">
             Guest Information
           </span>
           <HeadingReveal 
@@ -78,7 +84,7 @@ export default function WeddingTravel() {
               viewport={{ once: true }}
               transition={{ duration: 1, delay: i * 0.2 }}
             >
-              <div className="h-full bg-white border-[0.5px] border-[#b8956a]/15 p-10 md:p-12 shadow-[0_4px_30px_rgba(184,149,106,0.06)] hover:shadow-[0_20px_60px_rgba(184,149,106,0.12)] transition-all duration-700 flex flex-col relative overflow-hidden">
+              <div className="h-full bg-[#fdfcfb] border-[0.5px] border-[#b8956a]/15 p-10 md:p-12 shadow-[0_4px_30px_rgba(184,149,106,0.06)] hover:shadow-[0_20px_60px_rgba(184,149,106,0.12)] transition-all duration-700 flex flex-col relative overflow-hidden rounded-lg">
                 
                 {/* Large Background Index Number - Fills the space on the right */}
                 <div className="absolute top-[-10px] right-[-10px] font-serif italic text-[120px] md:text-[140px] leading-none text-[#b8956a]/5 select-none group-hover:text-[#b8956a]/10 group-hover:scale-110 transition-all duration-1000 pointer-events-none">
@@ -93,7 +99,7 @@ export default function WeddingTravel() {
                   >
                     {mode.icon}
                   </div>
-                  <span className="font-sans text-[10px] tracking-[0.3em] text-[#b8956a]/60 uppercase font-medium">
+                  <span className="font-sans text-[12px] tracking-[0.3em] text-[#b8956a]/60 uppercase font-medium">
                     {mode.accent}
                   </span>
                 </div>
@@ -112,17 +118,22 @@ export default function WeddingTravel() {
                   </p>
                 </div>
 
-                {/* Bottom Row: Accent Line + Dot */}
-                <div className="pt-8 border-t-[0.5px] border-[#b8956a]/10 flex items-center justify-between">
+                {/* Bottom Row: Accent Line + CTA */}
+                <a 
+                  href={mode.mapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pt-8 border-t-[0.5px] border-[#b8956a]/10 flex items-center justify-between group/cta"
+                >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-[1px] bg-[#b8956a]/30 group-hover:w-20 transition-all duration-700" />
-                    <span className="font-sans text-[9px] tracking-[0.2em] text-[#b8956a]/40 uppercase">Details</span>
+                    <div className="w-12 h-[1px] bg-[#b8956a]/30 group-hover/cta:w-20 transition-all duration-700" />
+                    <span className="font-sans text-[11px] tracking-[0.2em] text-[#b8956a] uppercase font-bold group-hover/cta:text-[#b8956a] transition-colors">{mode.cta}</span>
                   </div>
                   <div 
-                    className="w-2.5 h-2.5 rounded-full opacity-30 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700"
+                    className="w-2.5 h-2.5 rounded-full opacity-30 group-hover/cta:opacity-100 group-hover/cta:scale-125 transition-all duration-700"
                     style={{ backgroundColor: mode.color }}
                   />
-                </div>
+                </a>
 
                 {/* Interactive Corner Accents */}
                 <div className="absolute top-0 left-0 w-0 h-0 border-t-[1px] border-l-[1px] border-[#b8956a]/20 group-hover:w-8 group-hover:h-8 transition-all duration-700" />

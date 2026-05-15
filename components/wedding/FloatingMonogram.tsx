@@ -110,41 +110,10 @@ export default function FloatingMonogram({ className = "", isCentered = false }:
       }}
       
       onClick={() => {
-        // Play celebration sound - Fairy Magic Sparkle
-        try {
-          const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3');
-          audio.volume = 0.5;
-          audio.play().catch(() => {});
-        } catch (e) {}
-        
         handleLogoClick();
       }}
     >
       <div className="relative group">
-        {/* Floating "Click Me" Hint - Moved to Bottom */}
-        <motion.div
-          className="absolute top-14 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#1a1816] px-4 py-2 shadow-2xl pointer-events-none z-[110]"
-          initial={{ opacity: 0, scale: 0.8, y: -10 }}
-          animate={{ 
-            opacity: [0, 1, 1, 0], 
-            scale: [0.8, 1, 1, 0.8],
-            y: [-10, 0, 0, 10] 
-          }}
-          transition={{ 
-            duration: 5, 
-            repeat: Infinity, 
-            repeatDelay: 6,
-            times: [0, 0.1, 0.9, 1] 
-          }}
-        >
-          {/* Tip arrow - Moved to top */}
-          <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#1a1816] rotate-45" />
-          
-          <span className="font-[Cinzel] text-[10px] tracking-[0.25em] text-[#f4ede4] uppercase font-bold">
-            Cheers for Melbin & Nena
-          </span>
-        </motion.div>
-
         {/* Main Monogram Circle - Refined for luxury */}
         <div className={`relative w-[36px] h-[36px] md:w-[40px] md:h-[40px] rounded-full bg-white backdrop-blur-xl border-[0.5px] ${isCentered ? 'border-[#b8956a]/50 shadow-[#b8956a]/15 shadow-2xl' : 'border-[#b8956a]/30 shadow-lg'} shadow-black/5 flex items-center justify-center overflow-hidden transition-all duration-700 group-hover:border-[#b8956a]`}>
           {/* Refined Shine Effect */}

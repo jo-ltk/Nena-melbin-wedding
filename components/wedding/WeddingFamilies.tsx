@@ -22,7 +22,7 @@ export default function WeddingFamilies() {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-          <span className="font-display text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-4">
+          <span className="font-display text-[12px] tracking-[0.5em] text-[#b8956a] uppercase mb-4">
             Blessed Families
           </span>
           <HeadingReveal 
@@ -76,7 +76,7 @@ export default function WeddingFamilies() {
 function FamilyCard({ label, name, parents, address, image, delay }: { label: string, name: string, parents: string, address: string, image?: string, delay: number }) {
   return (
     <motion.div 
-      className="flex flex-col items-center text-center p-6 md:p-10 border-[0.5px] border-[rgba(184,149,106,0.15)] bg-white/50 backdrop-blur-[2px] shadow-2xl shadow-[#b8956a]/5 relative group min-h-fit justify-center py-10 md:py-16"
+      className="flex flex-col items-center text-center p-6 md:p-10 border-[0.5px] border-[rgba(184,149,106,0.15)] bg-[#fdfcfb]/60 backdrop-blur-[2px] shadow-2xl shadow-[#b8956a]/5 relative group min-h-fit justify-center py-10 md:py-16"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -131,7 +131,7 @@ function FamilyCard({ label, name, parents, address, image, delay }: { label: st
           {parents}
         </p>
         <div className="pt-2">
-          <p className="font-sans text-[11px] tracking-widest text-[#b8956a]/60 uppercase leading-relaxed max-w-[320px] mx-auto">
+          <p className="font-sans text-[13px] tracking-widest text-[#b8956a]/60 uppercase leading-relaxed max-w-[320px] mx-auto">
             {address}
           </p>
         </div>

@@ -99,7 +99,7 @@ export default function WeddingInvitation() {
   };
 
   return (
-    <section id="rsvp" className="relative w-full py-20 md:py-32 px-7 overflow-hidden" style={{ backgroundColor: '#faf9f6' }}>
+    <section id="rsvp" className="relative w-full py-12 md:py-16 px-7 overflow-hidden" style={{ backgroundColor: '#faf9f6' }}>
       {/* Subtle Background Texture */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
            style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
@@ -112,7 +112,7 @@ export default function WeddingInvitation() {
         viewport={{ once: true, margin: "-50px" }}
       >
         {/* The "Invitation Card" Frame - FOCUSED WIDTH */}
-        <div className="flex flex-col items-center text-center py-12 md:py-20 px-6 md:px-16 relative">
+        <div className="flex flex-col items-center text-center py-8 md:py-12 px-6 md:px-16 relative">
           
           {/* Animated Border Frame */}
           <motion.div 
@@ -124,7 +124,7 @@ export default function WeddingInvitation() {
           />
           
           {/* Top Ornament - Minimalist Cross */}
-          <motion.div variants={itemVariants} className="mb-8 md:mb-16">
+          <motion.div variants={itemVariants} className="mb-6 md:mb-10">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <motion.path 
                 initial={{ pathLength: 0 }}
@@ -146,7 +146,7 @@ export default function WeddingInvitation() {
           </motion.div>
 
           {/* Main Text - BIG & BALANCED with reveal animation */}
-          <div className="space-y-6 md:space-y-10 mb-12 md:mb-20 w-full">
+          <div className="space-y-6 md:space-y-10 mb-8 md:mb-12 w-full">
             <RevealText
               text="With the blessing of the Almighty God and our parents, we request the honour of your presence"
               style={{
@@ -202,7 +202,7 @@ export default function WeddingInvitation() {
               style={{
                 fontFamily: "'Jost', sans-serif",
                 fontWeight: 300,
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: '0.5em',
                 color: '#b8956a',
                 textTransform: 'uppercase',

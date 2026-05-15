@@ -124,7 +124,7 @@ export default function WeddingCountdown() {
             style={{
               fontFamily: "'Jost', sans-serif",
               fontWeight: 200,
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.6em',
               color: 'rgba(255, 218, 140, 0.7)',
               textTransform: 'uppercase',

@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { MapPin, Clock, Compass, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MapPin, Clock, Compass } from 'lucide-react';
+import { useState } from 'react';
 import { HeadingReveal } from './HeadingReveal';
 
 const VENUES = [
@@ -32,14 +33,16 @@ const VENUES = [
 ];
 
 export default function WeddingVenue() {
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
-    <section id="venues" className="relative w-full py-10 md:py-16 bg-[#faf9f6] overflow-hidden">
+    <section id="venues" className="relative w-full py-12 md:py-20 bg-[#faf9f6] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         
-        {/* Compact Header */}
-        <div className="flex flex-col items-center text-center mb-6">
+        {/* Header */}
+        <div className="flex flex-col items-center text-center mb-10 md:mb-16">
           <motion.span 
-            className="font-[Cinzel] text-[10px] tracking-[0.4em] text-[#b8956a] uppercase mb-3"
+            className="font-sans text-[12px] tracking-[0.5em] text-[#b8956a] uppercase mb-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -48,51 +51,65 @@ export default function WeddingVenue() {
           </motion.span>
           <HeadingReveal 
             as="h2"
-            className="font-serif italic font-light text-[#1a1816] mb-3"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
+            className="font-serif italic font-light text-[#1a1816] mb-6"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}
           >
             Venues
           </HeadingReveal>
-          <div className="w-10 h-[1px] bg-[#b8956a]/30" />
+          <div className="flex items-center gap-4 w-24">
+            <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
+            <div className="w-1.5 h-1.5 border-[0.5px] border-[#b8956a]/40 rotate-45" />
+            <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
+          </div>
         </div>
 
-        {/* Mobile-Focused Swipeable Carousel / Desktop Grid */}
-        <div className="relative">
-          {/* Swipe Hint for Mobile */}
-          <motion.div 
-            className="flex lg:hidden items-center justify-center gap-2 mb-4 text-[#b8956a]/60"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <span className="font-[Cinzel] text-[8px] tracking-[0.2em] uppercase">Swipe to explore</span>
-            <motion.div
-              animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        {/* Mobile Tabs */}
+        <div className="flex lg:hidden justify-center mb-10 border-b border-[#b8956a]/10">
+          {VENUES.map((venue, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveTab(i)}
+              className={`px-4 pb-4 font-sans text-[11px] tracking-[0.2em] uppercase transition-all duration-500 relative ${
+                activeTab === i ? 'text-[#b8956a] font-bold' : 'text-[#b8956a]/40'
+              }`}
             >
-              <ChevronRight size={10} strokeWidth={1} />
-            </motion.div>
-          </motion.div>
+              {venue.type}
+              {activeTab === i && (
+                <motion.div 
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#b8956a]"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
 
-          <div className="flex overflow-x-auto pb-8 snap-x snap-mandatory no-scrollbar lg:grid lg:grid-cols-3 lg:gap-8 gap-4 px-2">
-            {VENUES.map((venue, i) => (
-              <VenueCard key={i} venue={venue} delay={i * 0.1} />
-            ))}
+        {/* Content Area */}
+        <div className="relative">
+          {/* Mobile View (Single Animated Card) */}
+          <div className="lg:hidden min-h-[500px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                <VenueCard venue={VENUES[activeTab]} delay={0} />
+              </motion.div>
+            </AnimatePresence>
           </div>
-          
-          {/* Swipe Hint for Mobile */}
-          <div className="flex lg:hidden justify-center gap-1.5 mt-2">
-            {VENUES.map((_, i) => (
-              <div key={i} className="w-1 h-1 rounded-full bg-[#b8956a]/30" />
+
+          {/* Desktop Grid */}
+          <div className="hidden lg:grid lg:grid-cols-3 lg:gap-10">
+            {VENUES.map((venue, i) => (
+              <VenueCard key={i} venue={venue} delay={i * 0.15} />
             ))}
           </div>
         </div>
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}} />
     </section>
   );
 }
@@ -100,15 +117,15 @@ export default function WeddingVenue() {
 function VenueCard({ venue, delay }: { venue: any, delay: number }) {
   return (
     <motion.div 
-      className="flex-shrink-0 w-[85vw] sm:w-[350px] lg:w-full snap-center group"
+      className="w-full group"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, delay }}
+      transition={{ duration: 1, delay }}
     >
-      <div className="bg-white border-[0.5px] border-[#b8956a]/15 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+      <div className="bg-[#fdfcfb] border-[0.5px] border-[#b8956a]/15 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700 rounded-lg">
         
-        {/* Map Header - More Compact */}
+        {/* Map Header */}
         <div className="relative aspect-[16/10] overflow-hidden bg-[#eee]">
           <iframe 
             title={venue.name}
@@ -120,25 +137,25 @@ function VenueCard({ venue, delay }: { venue: any, delay: number }) {
             loading="lazy" 
             className="grayscale-[0.5] contrast-[1.1] opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100"
           />
-          <div className="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-sm text-[#b8956a] font-[Cinzel] text-[8px] tracking-[0.2em] uppercase border-[0.5px] border-[#b8956a]/10">
+          <div className="absolute top-4 left-4 px-4 py-1.5 bg-[#fdfcfb]/95 backdrop-blur-sm text-[#b8956a] font-sans text-[10px] tracking-[0.25em] uppercase border-[0.5px] border-[#b8956a]/15 shadow-sm">
             {venue.type}
           </div>
         </div>
 
-        {/* Content - Compact & Clean */}
-        <div className="p-6 md:p-8">
-          <div className="flex items-center gap-2 mb-3 text-[#b8956a]">
-            <Clock size={12} />
-            <span className="font-[Jost] text-[10px] tracking-widest uppercase">{venue.time}</span>
+        {/* Content */}
+        <div className="p-8 md:p-10">
+          <div className="flex items-center gap-3 mb-4 text-[#b8956a]">
+            <Clock size={14} strokeWidth={1.5} />
+            <span className="font-sans text-[13px] tracking-widest uppercase font-bold">{venue.time}</span>
           </div>
 
-          <h3 className="font-serif text-[22px] md:text-[26px] text-[#1a1816] leading-tight mb-2">
+          <h3 className="font-serif text-[26px] md:text-[32px] text-[#1a1816] leading-tight mb-4 font-light italic">
             {venue.name}
           </h3>
           
-          <div className="flex items-start gap-2 mb-6 text-[#2a2622]/60">
-            <MapPin size={12} className="mt-1 flex-shrink-0" />
-            <p className="font-[Jost] text-[13px] font-light leading-relaxed">
+          <div className="flex items-start gap-3 mb-8 text-[#2a2622]/70">
+            <MapPin size={14} className="mt-1 flex-shrink-0 text-[#b8956a]" />
+            <p className="font-sans text-[14px] md:text-[16px] font-light leading-relaxed">
               {venue.address}
             </p>
           </div>
@@ -147,10 +164,10 @@ function VenueCard({ venue, delay }: { venue: any, delay: number }) {
             href={venue.mapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-3.5 bg-[#b8956a] text-white font-[Cinzel] text-[9px] tracking-[0.25em] uppercase transition-all duration-300 hover:bg-[#a68459]"
+            className="flex items-center justify-center gap-3 w-full py-4 bg-[#b8956a] text-white font-sans text-[11px] tracking-[0.3em] uppercase transition-all duration-500 hover:bg-[#a68459] shadow-lg shadow-[#b8956a]/10"
             whileTap={{ scale: 0.98 }}
           >
-            <Compass size={12} />
+            <Compass size={14} strokeWidth={1.5} />
             Directions
           </motion.a>
         </div>

@@ -144,7 +144,7 @@ export default function WeddingHero() {
             style={{
               fontFamily: "'Jost', sans-serif",
               fontWeight: 300,
-              fontSize: 'clamp(9px, 2.5vw, 11px)',
+              fontSize: 'clamp(12px, 2.5vw, 13px)',
               letterSpacing: '0.25em',
               color: 'rgba(255,238,200,0.55)',
               textTransform: 'uppercase',

@@ -54,7 +54,7 @@ export default function WeddingStory() {
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
         >
-          <span className="font-display text-[10px] tracking-[0.5em] text-[#b8956a] uppercase mb-6">
+          <span className="font-display text-[12px] tracking-[0.5em] text-[#b8956a] uppercase mb-6">
             Two Lives, One Journey
           </span>
           <HeadingReveal 
@@ -83,64 +83,72 @@ export default function WeddingStory() {
 }
 
 function StoryBlock({ moment, index }: { moment: any, index: number }) {
-  const isReverse = moment.layout === 'reverse';
-  
   return (
-    <div className={`flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-24`}>
-      {/* Image Block */}
+    <div className="relative w-full max-w-6xl mx-auto">
       <motion.div 
-        className="w-full md:w-[55%] relative"
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        className="relative aspect-[4/3] md:aspect-[21/9] overflow-hidden rounded-sm shadow-2xl"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="relative aspect-[4/3] md:aspect-[3/2] overflow-hidden group shadow-2xl shadow-[#b8956a]/5">
-          <ParallaxImage className="absolute inset-0 w-full h-full" offset={5}>
-            <motion.div 
-              className="w-full h-full relative"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 2 }}
-            >
-              <Image 
-                src={moment.image} 
-                alt={moment.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                quality={95}
-                className="object-cover object-[center_20%] grayscale-[0.1] contrast-[1.05]"
-              />
-            </motion.div>
-          </ParallaxImage>
-          <div className="absolute inset-0 bg-[#b8956a]/5 mix-blend-multiply pointer-events-none" />
-          <div className="absolute inset-6 border-[0.5px] border-white/30 z-10 pointer-events-none" />
-        </div>
-        
-        {/* Floating Accent Circle */}
-        <div className={`absolute -bottom-6 ${isReverse ? '-left-6' : '-right-6'} w-32 h-32 border-[0.5px] border-[#b8956a]/20 rounded-full -z-10 hidden md:block`} />
-      </motion.div>
-
-      {/* Text Block */}
-      <motion.div 
-        className="w-full md:w-[45%] flex flex-col space-y-6"
-        initial={{ opacity: 0, x: isReverse ? -40 : 40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1.2, delay: 0.2 }}
-      >
-        <span className="font-display text-[10px] tracking-[0.4em] text-[#b8956a] uppercase">
-          Chapter {String(index + 1).padStart(2, '0')}
-        </span>
-        <HeadingReveal 
-          as="h3" 
-          className="font-serif text-[32px] md:text-[48px] text-[#1a1816] leading-tight"
+        {/* The Image (Blurred) */}
+        <motion.div 
+          className="absolute inset-0 w-full h-full"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 3 }}
         >
-          {moment.title}
-        </HeadingReveal>
-        <p className="font-serif text-[18px] md:text-[22px] leading-relaxed text-[#2a2622]/80 font-light">
-          {moment.text}
-        </p>
-        <div className={`w-12 h-[0.5px] bg-[#b8956a]/40 ${isReverse ? 'self-end' : 'self-start'}`} />
+          <Image 
+            src={moment.image} 
+            alt={moment.title}
+            fill
+            sizes="100vw"
+            quality={90}
+            className="object-cover object-center blur-[6px] scale-110 opacity-80"
+          />
+        </motion.div>
+
+        {/* Cinematic Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1816]/90 via-[#1a1816]/50 to-[#1a1816]/80" />
+        
+        {/* Content Overlay */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-20 text-center">
+          <motion.span 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="font-display text-[11px] md:text-[13px] tracking-[0.5em] text-[#b8956a] uppercase mb-4 md:mb-8"
+          >
+            Chapter {String(index + 1).padStart(2, '0')}
+          </motion.span>
+
+          <div className="max-w-4xl mx-auto">
+            <HeadingReveal 
+              as="h3" 
+              className="font-serif italic font-light text-white leading-tight mb-6 md:mb-10"
+              style={{ fontSize: 'clamp(1.8rem, 5vw, 4rem)' }}
+            >
+              {moment.title}
+            </HeadingReveal>
+            
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 1 }}
+              className="font-serif text-[16px] md:text-[24px] leading-relaxed text-[#f4ede4]/90 font-light max-w-3xl mx-auto"
+            >
+              {moment.text}
+            </motion.p>
+          </div>
+
+          {/* Bottom Accent */}
+          <motion.div 
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="w-24 h-[0.5px] bg-[#b8956a]/60 mt-8 md:mt-12" 
+          />
+        </div>
       </motion.div>
     </div>
   );
