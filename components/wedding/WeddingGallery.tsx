@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { HeadingReveal } from './HeadingReveal';
+import ParallaxImage from './ParallaxImage';
 
 const STORY_MOMENTS = [
   {
@@ -72,62 +73,70 @@ export default function OurStorySection() {
             className="
               relative grid md:grid-cols-2 overflow-hidden
               rounded-[32px]
-              bg-white/60
-              backdrop-blur-xl
+              bg-white/85
+              backdrop-blur-sm
               border border-white/40
-              shadow-[0_25px_80px_rgba(0,0,0,0.08)]
-              min-h-[620px]
+              shadow-[0_20px_50px_rgba(0,0,0,0.03)]
             "
           >
 
             {/* Image Section */}
             <div
               className={`
-                relative h-[320px] md:h-full overflow-hidden
+                relative h-[450px] md:h-auto overflow-hidden
                 ${index % 2 === 1 ? 'md:order-2' : ''}
               `}
             >
-              <Image
-                src={story.image}
-                alt={story.title}
-                fill
-                priority
-                className="object-cover scale-[1.03]"
+              <ParallaxImage offset={8} className="w-full h-full">
+                <Image
+                  src={story.image}
+                  alt={story.title}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+              </ParallaxImage>
+
+              {/* Gradient Blur "Level" Effect */}
+              <div 
+                className="absolute inset-0 backdrop-blur-[6px] pointer-events-none"
+                style={{
+                  maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)'
+                }}
               />
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/20" />
-
-              {/* Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              {/* Sophisticated Dual Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20 pointer-events-none" />
             </div>
 
             {/* Content */}
-            <div className="relative flex items-center justify-center px-7 sm:px-10 md:px-16 py-16 md:py-20">
+            <div className="relative flex flex-col justify-center px-8 sm:px-14 md:px-20 py-20 md:py-28">
 
-              <div className="max-w-[540px]">
+              <div className="max-w-[540px] w-full">
 
                 {/* Chapter */}
-                <div className="mb-6">
-                  <p className="tracking-[0.45em] uppercase text-[#b99266] text-[10px] md:text-xs">
+                <div className="mb-8 flex items-center gap-4">
+                  <span className="text-[#b99266] font-medium text-sm">/</span>
+                  <p className="tracking-[0.4em] uppercase text-[#d4af37] text-[13px] md:text-[15px] font-bold">
                     {story.chapter}
                   </p>
                 </div>
 
                 {/* Title */}
-                <h3 className="font-serif italic text-[#181411] leading-[0.95] text-[2.8rem] sm:text-[3.5rem] md:text-[5rem] mb-8">
+                <h3 className="font-serif italic text-[#181411] leading-[1.05] text-[2.8rem] sm:text-[3.5rem] md:text-[4.8rem] mb-10">
                   {story.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-[#4e453d] leading-[2] text-[1.05rem] sm:text-[1.15rem] md:text-[1.22rem]">
+                <p className="text-[#5a5048] leading-[1.9] text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] font-light">
                   {story.text}
                 </p>
 
                 {/* Decorative line */}
-                <div className="mt-10 flex items-center gap-3">
-                  <div className="w-10 h-[1px] bg-[#d3b08a]" />
-                  <div className="w-2 h-2 rounded-full bg-[#d3b08a]" />
+                <div className="mt-14 flex items-center gap-4">
+                  <div className="w-16 h-[1px] bg-[#d3b08a]/60" />
+                  <div className="w-2.5 h-2.5 rounded-full border border-[#d3b08a] bg-white" />
                 </div>
               </div>
             </div>

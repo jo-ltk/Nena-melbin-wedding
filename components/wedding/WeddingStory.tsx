@@ -86,7 +86,7 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
   return (
     <div className="relative w-full max-w-6xl mx-auto">
       <motion.div 
-        className="relative aspect-[4/3] md:aspect-[21/9] overflow-hidden rounded-sm shadow-2xl"
+        className="relative aspect-[4/5] sm:aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-2xl shadow-2xl"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -103,13 +103,22 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
             alt={moment.title}
             fill
             sizes="100vw"
-            quality={90}
-            className="object-cover object-center blur-[6px] scale-110 opacity-80"
+            quality={95}
+            className="object-cover object-center opacity-90 transition-transform duration-1000"
+          />
+
+          {/* Gradient Blur "Level" Effect */}
+          <div 
+            className="absolute inset-0 backdrop-blur-[8px] pointer-events-none"
+            style={{
+              maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)'
+            }}
           />
         </motion.div>
 
-        {/* Cinematic Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1816]/90 via-[#1a1816]/50 to-[#1a1816]/80" />
+        {/* Cinematic Overlay - Refined for better image visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
         
         {/* Content Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-20 text-center">
@@ -117,7 +126,7 @@ function StoryBlock({ moment, index }: { moment: any, index: number }) {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="font-display text-[11px] md:text-[13px] tracking-[0.5em] text-[#b8956a] uppercase mb-4 md:mb-8"
+            className="font-display text-[14px] md:text-[16px] tracking-[0.6em] text-[#d4af37] uppercase mb-4 md:mb-8 font-semibold drop-shadow-md"
           >
             Chapter {String(index + 1).padStart(2, '0')}
           </motion.span>

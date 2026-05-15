@@ -16,7 +16,7 @@ export default function WeddingLoader() {
       className="fixed inset-0 flex flex-col items-center justify-center bg-burgundy z-9999"
       animate={{ opacity: isHiding ? 0 : 1 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      pointerEvents={isHiding ? 'none' : 'auto'}
+      style={{ pointerEvents: isHiding ? 'none' : 'auto' } as any}
     >
       <motion.div
         className="flex flex-col items-center gap-6"
