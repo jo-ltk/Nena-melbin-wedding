@@ -1,186 +1,139 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import ParallaxImage from './ParallaxImage';
 import { HeadingReveal } from './HeadingReveal';
 
-const GALLERY_IMAGES = [
-  { url: '/gallery/JIJ01663.jpg', span: 'md:col-span-1 md:row-span-1' },
-  { url: '/gallery/JIJ02080.jpg', span: 'md:col-span-1 md:row-span-2' }, // Tall
-  { url: '/gallery/JIJ02918.jpg', span: 'md:col-span-2 md:row-span-1' }, // Wide
-  { url: '/gallery/JIJ02942.jpg', span: 'md:col-span-1 md:row-span-1' },
-  { url: '/gallery/JIJ02140.jpg', span: 'md:col-span-2 md:row-span-2' }, // Large square
-  { url: '/gallery/JIJ02815.jpg', span: 'md:col-span-1 md:row-span-1' },
-  { url: '/gallery/JIJ02583.jpg', span: 'md:col-span-1 md:row-span-1' },
-  { url: '/gallery/JIJ01918.jpg', span: 'md:col-span-2 md:row-span-1' }, // Wide
-  { url: '/gallery/JIJ00992.jpg', span: 'col-span-2 md:col-span-4 md:row-span-1', position: 'object-[center_30%]' },
+const STORY_MOMENTS = [
+  {
+    chapter: 'Chapter 01',
+    title: 'A Meaningful Beginning',
+    text: `Guided by faith and family values, Melbin and Nena first connected through a modern marriage platform. What began as simple conversations slowly blossomed into a relationship filled with warmth, respect, and understanding.`,
+    image: '/story/story-1.jpg',
+  },
+  {
+    chapter: 'Chapter 02',
+    title: 'Families United',
+    text: `As their connection deepened, both families came together with love, tradition, and blessings. Shared laughter and heartfelt moments turned two families into one beautiful bond.`,
+    image: '/story/story-2.jpg',
+  },
+  {
+    chapter: 'Chapter 03',
+    title: 'Forever Begins',
+    text: `Now, surrounded by love and faith, Melbin and Nena step into a new chapter together — building a future rooted in companionship, trust, and endless memories.`,
+    image: '/story/story-3.jpg',
+  },
 ];
 
-export default function WeddingGallery() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
-  const handlePrevious = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length);
-    }
-  };
-
-  const handleNext = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (selectedIndex !== null) {
-      setSelectedIndex((selectedIndex + 1) % GALLERY_IMAGES.length);
-    }
-  };
-
+export default function OurStorySection() {
   return (
-    <section id="gallery" className="relative w-full bg-[#faf9f6] pb-20 px-6 overflow-hidden">
-      {/* Background Texture */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" 
-           style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
+    <section className="relative bg-[#f7f4ef] py-24 md:py-36 overflow-hidden">
 
-      {/* Header Section - Compacted as requested */}
-      <motion.div 
-        className="flex flex-col items-center text-center mb-10 md:mb-16"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2 }}
-      >
-        <HeadingReveal 
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[#d7b690]/10 blur-3xl rounded-full pointer-events-none" />
+
+      {/* Header */}
+      <div className="relative z-10 text-center mb-16 md:mb-24 px-6">
+
+        <p className="tracking-[0.45em] uppercase text-[#c3a27c] text-[11px] md:text-xs mb-6">
+          Two Souls • One Journey
+        </p>
+
+        <HeadingReveal
           as="h2"
-          className="font-serif italic font-light text-[#1a1816] leading-tight mb-6"
-          style={{ fontSize: 'clamp(3rem, 7vw, 5rem)' }}
+          className="font-serif italic font-light text-[#181411] leading-none"
+          style={{
+            fontSize: 'clamp(3.5rem,10vw,7rem)',
+          }}
         >
-          Gallery
+          Our Story
         </HeadingReveal>
-        <div className="flex items-center gap-4 w-24">
-          <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
-          <div className="w-1.5 h-1.5 border-[0.5px] border-[#b8956a]/40 rotate-45" />
-          <div className="flex-1 h-[0.5px] bg-[#b8956a]/30" />
-        </div>
-      </motion.div>
 
-      {/* Collage Layout */}
-      <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] md:auto-rows-[250px] gap-3 md:gap-4 grid-flow-dense">
-          {GALLERY_IMAGES.map((img, i) => (
-            <motion.div
-              key={i}
-              className={`relative overflow-hidden group cursor-pointer shadow-xl shadow-[#b8956a]/5 rounded-sm ${img.span}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.05 }}
-              onClick={() => setSelectedIndex(i)}
-            >
-              <div className="absolute inset-0 w-full h-full">
-                <ParallaxImage className="absolute inset-0 w-full h-full" offset={5}>
-                  <motion.div 
-                    className="w-full h-full relative"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 1.5 }}
-                  >
-                    <Image 
-                      src={img.url}
-                      alt="Gallery moment"
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      quality={75}
-                      className={`object-cover ${img.position || 'object-top'} grayscale-[0.02] contrast-[1.02]`}
-                    />
-                  </motion.div>
-                </ParallaxImage>
-                
-                {/* Hover Veil */}
-                <motion.div 
-                  className="absolute inset-0 bg-[#b8956a]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                />
-                
-                {/* Inner Frame */}
-                <div className="absolute inset-3 border-[0.5px] border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-              </div>
-            </motion.div>
-          ))}
+        <div className="flex items-center justify-center gap-4 mt-8">
+          <div className="w-14 h-[1px] bg-[#d8c5ad]" />
+          <div className="w-2 h-2 border border-[#d8c5ad] rotate-45" />
+          <div className="w-14 h-[1px] bg-[#d8c5ad]" />
         </div>
       </div>
 
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {selectedIndex !== null && (
-          <motion.div 
-            className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+      {/* Story Cards */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 flex flex-col gap-14 md:gap-24">
+
+        {STORY_MOMENTS.map((story, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{
+              duration: 0.45,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+              relative grid md:grid-cols-2 overflow-hidden
+              rounded-[32px]
+              bg-white/60
+              backdrop-blur-xl
+              border border-white/40
+              shadow-[0_25px_80px_rgba(0,0,0,0.08)]
+              min-h-[620px]
+            "
           >
-            {/* Backdrop with enhanced glassmorphism */}
-            <motion.div 
-              className="absolute inset-0 bg-[#0a0806]/95 backdrop-blur-xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedIndex(null)}
-            />
 
-            {/* Close Button - High Z-index and mobile optimized */}
-            <button 
-              onClick={() => setSelectedIndex(null)}
-              className="absolute top-6 right-6 md:top-10 md:right-10 text-white/40 hover:text-white transition-all z-[170] p-2 hover:bg-white/10 rounded-full"
+            {/* Image Section */}
+            <div
+              className={`
+                relative h-[320px] md:h-full overflow-hidden
+                ${index % 2 === 1 ? 'md:order-2' : ''}
+              `}
             >
-              <X size={28} strokeWidth={1} />
-            </button>
+              <Image
+                src={story.image}
+                alt={story.title}
+                fill
+                priority
+                className="object-cover scale-[1.03]"
+              />
 
-            {/* Content Container - Centered and responsive */}
-            <motion.div 
-              className="relative w-full max-w-5xl h-full flex flex-col items-center justify-center z-[160]"
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative w-full h-full max-h-[75vh] md:max-h-[85vh] shadow-2xl shadow-black/50">
-                <Image 
-                  src={GALLERY_IMAGES[selectedIndex].url} 
-                  alt="Selected moment"
-                  fill
-                  className="object-contain"
-                  priority
-                  quality={85}
-                  sizes="(max-width: 1024px) 100vw, 80vw"
-                />
-              </div>
-              
-              {/* Controls and Info */}
-              <div className="mt-8 flex flex-col items-center gap-6 w-full">
-                <div className="flex items-center gap-8">
-                  <button 
-                    onClick={handlePrevious}
-                    className="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-white/5 backdrop-blur-sm"
-                  >
-                    <ChevronLeft size={20} strokeWidth={1} />
-                  </button>
-                  
-                  <div className="font-display text-[12px] md:text-[12px] tracking-[0.4em] text-white/40 uppercase">
-                    {selectedIndex + 1} <span className="mx-2 text-white/10">/</span> {GALLERY_IMAGES.length}
-                  </div>
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/20" />
 
-                  <button 
-                    onClick={handleNext}
-                    className="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-white/5 backdrop-blur-sm"
-                  >
-                    <ChevronRight size={20} strokeWidth={1} />
-                  </button>
+              {/* Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+            </div>
+
+            {/* Content */}
+            <div className="relative flex items-center justify-center px-7 sm:px-10 md:px-16 py-16 md:py-20">
+
+              <div className="max-w-[540px]">
+
+                {/* Chapter */}
+                <div className="mb-6">
+                  <p className="tracking-[0.45em] uppercase text-[#b99266] text-[10px] md:text-xs">
+                    {story.chapter}
+                  </p>
+                </div>
+
+                {/* Title */}
+                <h3 className="font-serif italic text-[#181411] leading-[0.95] text-[2.8rem] sm:text-[3.5rem] md:text-[5rem] mb-8">
+                  {story.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-[#4e453d] leading-[2] text-[1.05rem] sm:text-[1.15rem] md:text-[1.22rem]">
+                  {story.text}
+                </p>
+
+                {/* Decorative line */}
+                <div className="mt-10 flex items-center gap-3">
+                  <div className="w-10 h-[1px] bg-[#d3b08a]" />
+                  <div className="w-2 h-2 rounded-full bg-[#d3b08a]" />
                 </div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        ))}
+      </div>
     </section>
   );
 }

@@ -137,16 +137,18 @@ function VenueCard({ venue, delay }: { venue: any, delay: number }) {
             loading="lazy" 
             className="grayscale-[0.5] contrast-[1.1] opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100"
           />
-          <div className="absolute top-4 left-4 px-4 py-1.5 bg-[#fdfcfb]/95 backdrop-blur-sm text-[#b8956a] font-sans text-[10px] tracking-[0.25em] uppercase border-[0.5px] border-[#b8956a]/15 shadow-sm">
-            {venue.type}
-          </div>
         </div>
 
         {/* Content */}
         <div className="p-8 md:p-10">
-          <div className="flex items-center gap-3 mb-4 text-[#b8956a]">
-            <Clock size={14} strokeWidth={1.5} />
-            <span className="font-sans text-[13px] tracking-widest uppercase font-bold">{venue.time}</span>
+          <div className="flex items-center justify-between mb-6">
+            <div className="px-3 py-1 bg-[#b8956a]/5 border-[0.5px] border-[#b8956a]/20 text-[#b8956a] font-sans text-[10px] tracking-[0.2em] uppercase rounded-sm">
+              {venue.type}
+            </div>
+            <div className="flex items-center gap-2 text-[#b8956a]">
+              <Clock size={14} strokeWidth={1.5} />
+              <span className="font-sans text-[12px] tracking-widest uppercase font-bold">{venue.time}</span>
+            </div>
           </div>
 
           <h3 className="font-serif text-[26px] md:text-[32px] text-[#1a1816] leading-tight mb-4 font-light italic">
