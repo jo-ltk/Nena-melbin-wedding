@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: 'https://nena-melbin-wedding.vercel.app',
     images: [
       {
-        url: '/opengraph-image',
+        url: '/og-img.jpg',
         width: 1200,
         height: 630,
         alt: 'Melbin & Nena Wedding',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: 'Melbin & Nena | Wedding Day',
     description:
       '31 May 2026 · St. Athanasius Cathedral, Kolencherry, Kerala. Celebrate with us!',
-    images: ['/opengraph-image'],
+    images: ['/og-img.jpg'],
   },
 }
 
